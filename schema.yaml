@@ -1,0 +1,10 @@
+
+enabled: true
+article_type: false
+event_type: false
+product_type: false
+restaurant_type: false
+person_type: false
+organization_type: false
+music_event_type: false
+music_album_type: false
