@@ -219,7 +219,7 @@ form:
                       label: PLUGIN_SCHEMA.ORGANIZATION_NAME
                     header.orga.description:
                       type: text
-                      label: ORGANIZATION_DESC
+                      label: PLUGIN_SCHEMA.ORGANIZATION_DESC
                     header.orga.legal_name:
                       type: text
                       label: PLUGIN_SCHEMA.LEGAL_NAME
@@ -274,7 +274,7 @@ form:
                         type: bool
                     header.orga.rating_value:
                       type: range
-                      label: PLUGIN_SCHEMA.START_RATING
+                      label: PLUGIN_SCHEMA.STAR_RATING
                       validate:
                         min: 0
                         max: 5
@@ -657,12 +657,13 @@ form:
                       label: PLUGIN_SCHEMA.RESTAURANT_NAME
                       field_classes: toggle-restaurant
                     header.restaurant.accept_reservation:
-                      type: select
+                      type: toggle
+                      highlight: 'yes'
+                      default: 'no'
                       label: PLUGIN_SCHEMA.RESTAURANT_ACCEPT_RESERVATION
-                      field_classes: toggle-restaurant
                       options:
-                        yes: yes
-                        no: no
+                        'yes': PLUGIN_ADMIN.YES
+                        'no': PLUGIN_ADMIN.NO
                     header.restaurant.menu:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_MENU_URL
