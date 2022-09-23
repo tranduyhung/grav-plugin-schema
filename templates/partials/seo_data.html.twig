@@ -1,4 +1,4 @@
-{% set settings = config.plugins.seo.header %}
+{% set settings = config.plugins.schema.header %}
 
 
 
@@ -23,7 +23,7 @@
 {% endif %}
 
 
-{% if header.articleenabled %}
+{% if header.article_enabled %}
 {% set fullimagepath = page.url(true) ~ "/" ~ header.article.image.url %}
 {% set fulllogopath = page.url(true) ~ "/" ~ header.article.publisher.logo.url %}
 {% set article = header.article|merge({'image' : {
@@ -38,31 +38,31 @@
 {{ article|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
 </script>
 {% endif %}
-{% if header.personenabled %}
+{% if header.person_enabled %}
 <script  type="application/ld+json">
 {{ header.person|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
 </script>
 {% endif %}
-{% if header.eventenabled %}
+{% if header.event_enabled %}
 <script  type="application/ld+json">
 {{ header.event|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
 </script>
 {% endif %}
-{% if header.musicalbumenabled %}
+{% if header.music_album_enabled %}
 {% set fullalbumimgpath = page.url(true) ~ "/" ~ header.musicalbum.image %}
 {% set musicalbum = header.musicalbum|merge({'image' : fullalbumimgpath }) %}
 <script  type="application/ld+json">
 {{ musicalbum|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
 </script>
 {% endif %}
-{% if header.restaurantenabled %}
+{% if header.restaurant_enabled %}
 {% set fullrestaurantimgpath = page.url(true) ~ "/" ~ header.restaurant.image %}
 {% set restaurant = header.restaurant|merge({'image' : fullrestaurantimgpath }) %}
 <script  type="application/ld+json">
 {{ restaurant|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
 </script>
 {% endif %}
-{% if header.musiceventenabled %}
+{% if header.enable_music_event %}
 <script  type="application/ld+json">
 {% set musicevent = header.musicevent|merge({'startDate' : header.musicevent.startDate|date('c')}) %}
 {% set musicevent = musicevent|merge({'endDate' : header.musicevent.endDate|date('c')}) %}

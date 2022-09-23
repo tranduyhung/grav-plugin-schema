@@ -155,20 +155,20 @@ class SchemaPlugin extends Plugin
         $route = $this->config->get('plugins.admin.route');
         $microdata = [];
 
-        if (property_exists($page->header(), 'musiceventenabled'))
+        if (property_exists($page->header(), 'enable_music_event'))
         {
-            if (($page->header()->musiceventenabled)
-                && $this->config['plugins']['seo']['music_event_type'])
+            if (($page->header()->enable_music_event)
+                && $this->config['plugins']['schema']['music_event_type'])
             {
-                $musicEventsArray = $page->header()->musicevents;
+                $musicEventsArray = $page->header()->music_events;
  
                 if (count($musicEventsArray) > 0)
                 {
                     foreach ($musicEventsArray as $event)
                     {
-                        if (isset($event['musicevent_performer']))
+                        if (isset($event['music_event_performer']))
                         {
-                            foreach ($event['musicevent_performer'] as $artist)
+                            foreach ($event['music_event_performer'] as $artist)
                             {
                                 $performerarray[] = [
                                     '@type'     => @$artist['performer_type'],
@@ -178,9 +178,9 @@ class SchemaPlugin extends Plugin
                             }
                         }
 
-                        if (isset($event['musicevent_workPerformed']))
+                        if (isset($event['music_event_work_performed']))
                         {
-                            foreach ($event['musicevent_workPerformed'] as $work)
+                            foreach ($event['music_event_work_performed'] as $work)
                             {
                                 $workarray[] = [
                                     'name'      => @$work['name'],
@@ -189,9 +189,9 @@ class SchemaPlugin extends Plugin
                             }
                         }
 
-                        if (isset($event['musicevent_image']))
+                        if (isset($event['music_event_image']))
                         {
-                            $imageUrl = $event['musicevent_image'];
+                            $imageUrl = $event['music_event_image'];
                             $imageData = $this->seoGetimage($imageUrl);
                             $musicEventImage = [
                                 '@type'     => 'ImageObject',
@@ -204,37 +204,37 @@ class SchemaPlugin extends Plugin
                         $microdata[] = [
                             '@context'  => 'http://schema.org',
                             '@type'     => 'MusicEvent',
-                            'name'      => @$event['musicevent_location_name'],
+                            'name'      => @$event['music_event_location_name'],
                             'location'  => [
                                 '@type'     => 'MusicVenue',
-                                'name'      => @$event['musicevent_location_name'],
-                                'address'   => @$event['musicevent_location_address'],
+                                'name'      => @$event['music_event_location_name'],
+                                'address'   => @$event['music_event_location_address'],
                             ],
-                            'description'   => @$event['musicevent_description'],
-                            'url'           => @$event['musicevent_url'],
+                            'description'   => @$event['music_event_description'],
+                            'url'           => @$event['music_event_url'],
                             'performer'     => @$performerarray,
                             'workPerformed' => @$workarray, 
                             'image'         => @$musicEventImage,
                             'offers'        => [
                                 '@type'         => 'Offer',
-                                'price'         => @$event['musicevent_offers_price'],
-                                'priceCurrency' => @$event['musicevent_offers_priceCurrency'],
-                                'url'           => @$event['musicevent_offers_url'], 
+                                'price'         => @$event['music_event_offers_price'],
+                                'priceCurrency' => @$event['music_event_offers_price_currency'],
+                                'url'           => @$event['music_event_offers_url'], 
                             ],
-                            'startDate' => @date("c", strtotime($event['musicevent_startdate'])),
-                            'endDate'   => @date("c", strtotime($event['musicevent_enddate'])),
+                            'startDate' => @date("c", strtotime($event['music_event_start_date'])),
+                            'endDate'   => @date("c", strtotime($event['music_event_end_date'])),
                         ];
                     }
                 }
             }
         }
 
-        if (property_exists($page->header(), 'eventenabled'))
+        if (property_exists($page->header(), 'article_enabled'))
         {
-            if ($page->header()->eventenabled
-                && $this->config['plugins']['seo']['event_type'])
+            if ($page->header()->event_enabled
+                && $this->config['plugins']['schema']['event_type'])
             {
-                $eventsArray = @$page->header()->addevent;
+                $eventsArray = @$page->header()->add_event;
 
                 if (count($eventsArray) > 0)
                 {
@@ -249,21 +249,21 @@ class SchemaPlugin extends Plugin
                                 'name'      => @$event['event_location_name'],
                                 'address'   => [
                                     '@type'             => 'PostalAddress',
-                                    'addressLocality'   => @$event['event_location_address_addressLocality'],
-                                    'addressRegion'     => @$event['event_location_address_addressRegion'],
+                                    'addressLocality'   => @$event['event_location_address_address_locality'],
+                                    'addressRegion'     => @$event['event_location_address_address_region'],
                                     'streetAddress'     => @$event['event_location_streetAddress'],
                                 ],
-                                'url' => @$event['musicevent_location_url'],
+                                'url' => @$event['music_event_location_url'],
                             ],
-                            'description'   => @$event['musicevent_description'],
+                            'description'   => @$event['music_event_description'],
                             'offers'        => [
                                 '@type'         => 'Offer',
                                 'price'         => @$event['event_offers_price'],
                                 'priceCurrency' => @$event['event_offers_currency'],
                                 'url'           => @$event['event_offers_url'], 
                             ],
-                            'startDate'     => @date("c", strtotime($event['event_startDate'])),
-                            'endDate'       => @date("c", strtotime($event['event_endDate'])),
+                            'startDate'     => @date("c", strtotime($event['event_start_date'])),
+                            'endDate'       => @date("c", strtotime($event['event_end_date'])),
                             'description'   => @$event['event_description'],
                         ];
                     }
@@ -271,12 +271,12 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(), 'personenabled'))
+        if (property_exists($page->header(), 'person_enabled'))
         {
-            if ($page->header()->personenabled
-                && $this->config['plugins']['seo']['person_type'])
+            if ($page->header()->person_enabled
+                && $this->config['plugins']['schema']['person_type'])
                 {
-                    $personarray = @$page->header()->addperson;
+                    $personarray = @$page->header()->add_person;
 
                     if (count($personarray) > 0)
                     {
@@ -288,8 +288,8 @@ class SchemaPlugin extends Plugin
                                 'name'      => @$person['person_name'],
                                 'address'    => [
                                     '@type'             => 'PostalAddress',
-                                    'addressLocality'   => @$person['person_address_addressLocality'],
-                                    'addressRegion'     => @$person['person_address_addressRegion'],
+                                    'addressLocality'   => @$person['person_address_address_locality'],
+                                    'addressRegion'     => @$person['person_address_address_region'],
                                 ],
                                 'jobTitle' => @$person['person_jobTitle'],
                             ];
@@ -298,10 +298,10 @@ class SchemaPlugin extends Plugin
                 }
             }
 
-            if (property_exists($page->header(), 'orgaenabled'))
+            if (property_exists($page->header(), 'organization_enabled'))
             {
-                if ($page->header()->orgaenabled
-                    && $this->config['plugins']['seo']['organization_type'])
+                if ($page->header()->organization_enabled
+                    && $this->config['plugins']['schema']['organization_type'])
                 {
                     if (isset($page->header()->orga['founders']))
                     {
@@ -318,33 +318,33 @@ class SchemaPlugin extends Plugin
                     {
                         foreach ($page->header()->orga['similar'] as $similar)
                         {
-                            $similarArray[] = $similar['sameas'];
+                            $similarArray[] = $similar['same_as'];
                         }
                     }
 
-                    if (isset($page->header()->orga['areaserved']))
+                    if (isset($page->header()->orga['area_served']))
                     {
-                        foreach ($page->header()->orga['areaserved'] as $areaServed)
+                        foreach ($page->header()->orga['area_served'] as $areaServed)
                         {
                             $areaServedArray[] = $areaServed['area'];
                         }
                     }
 
-                    if (isset($page->header()->orga['openingHours']))
+                    if (isset($page->header()->orga['opening_hours']))
                     {
-                        foreach ($page->header()->orga['openingHours'] as $hours)
+                        foreach ($page->header()->orga['opening_hours'] as $hours)
                         {
                             $openingHours[] = $hours['entry'];
                         }
                     }
 
-                    if (isset($page->header()->orga['offercatalog']))
+                    if (isset($page->header()->orga['offer_catalog']))
                     {
-                        foreach ($page->header()->orga['offercatalog'] as $offer)
+                        foreach ($page->header()->orga['offer_catalog'] as $offer)
                         {
-                            if (array_key_exists('offereditem', $offer))
+                            if (array_key_exists('offered_item', $offer))
                             {
-                                foreach ($offer['offereditem'] as $service)
+                                foreach ($offer['offered_item'] as $service)
                                 {
                                     $offerArray[] = [
                                         '@type'             => 'OfferCatalog',
@@ -375,14 +375,14 @@ class SchemaPlugin extends Plugin
                     }
                 }
 
-                if (property_exists($page->header(),'orgaratingenabled'))
+                if (property_exists($page->header(),'organization_rating_enabled'))
                 {
-                    if ($page->header()->orgaratingenabled)
+                    if ($page->header()->organization_rating_enabled)
                     {
                         $orgaRating = [
                             '@type'         => 'AggregateRating',
-                            'ratingValue'   => @$page->header()->orga['ratingValue'],
-                            'reviewCount'   => @$page->header()->orga['reviewCount'],
+                            'ratingValue'   => @$page->header()->orga['rating_value'],
+                            'reviewCount'   => @$page->header()->orga['review_count'],
                         ];
                     } 
                 } 
@@ -391,24 +391,24 @@ class SchemaPlugin extends Plugin
                     '@context'      => 'http://schema.org',
                     '@type'         => 'Organization',
                     'name'          => @$page->header()->orga['name'],
-                    'legalname'     => @$page->header()->orga['legalname'],
-                    'taxid'         => @$page->header()->orga['taxid'],
-                    'vatid'         => @$page->header()->orga['vatid'],
+                    'legalName'     => @$page->header()->orga['legal_name'],
+                    'taxId'         => @$page->header()->orga['tax_id'],
+                    'vatId'         => @$page->header()->orga['vat_id'],
                     'areaServed'    => @$areaServedArray,
                     'description'   => @$page->header()->orga['description'],
                     'address'       => [
                         '@type'             => 'PostalAddress',
-                        'streetAddress'     => @$page->header()->orga['streetaddress'],
+                        'streetAddress'     => @$page->header()->orga['street_address'],
                         'addressLocality'   => @$page->header()->orga['city'],
                         'addressRegion'     => @$page->header()->orga['state'],
-                        'postalCode'        => @$page->header()->orga['zipcode'],
+                        'postalCode'        => @$page->header()->orga['zip_code'],
                     ],
                     'telephone'         => @$page->header()->orga['phone'],
                     'logo'              => @$page->header()->orga['logo'],
                     'url'               => @$page->header()->orga['url'],
                     'openingHours'      => @$openingHours,
                     'email'             => @$page->header()->orga['email'],
-                    'foundingDate'      => @$page->header()->orga['foundingDate'],
+                    'foundingDate'      => @$page->header()->orga['founding_date'],
                     'aggregateRating'   => @$orgaRating,
                     'paymentAccepted'   => @$page->header()->orga['paymentAccepted'],
                     'founders'          => @$founderArray,
@@ -418,10 +418,10 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(),'restaurantenabled'))
+        if (property_exists($page->header(),'restaurant_enabled'))
         {
-            if ($page->header()->restaurantenabled
-                && $this->config['plugins']['seo']['restaurant_type'])
+            if ($page->header()->restaurant_enabled
+                && $this->config['plugins']['schema']['restaurant_type'])
             {
                 if (isset($page->header()->restaurant['image']))
                 {
@@ -441,24 +441,24 @@ class SchemaPlugin extends Plugin
                     'name'      => @$page->header()->restaurant['name'],
                     'address'   => [
                         '@type'             => 'PostalAddress',
-                        'addressLocality'   => @$page->header()->restaurant['address_addressLocality'],
-                        'addressRegion'     => @$page->header()->restaurant['address_addressRegion'],
-                        'streetAddress'     => @$page->header()->restaurant['address_streetAddress'],
-                        'postalCode'        => @$page->header()->restaurant['address_postalCode'],
+                        'addressLocality'   => @$page->header()->restaurant['address_address_locality'],
+                        'addressRegion'     => @$page->header()->restaurant['address_address_region'],
+                        'streetAddress'     => @$page->header()->restaurant['address_street_address'],
+                        'postalCode'        => @$page->header()->restaurant['address_postal_code'],
                     ],
-                    'areaserved'    => @$areaServedArray,
-                    'servesCuisine' => @$page->header()->restaurant['servesCuisine'],
-                    'priceRange'    => @$page->header()->restaurant['priceRange'],
+                    'areaServed'    => @$areaServedArray,
+                    'servesCuisine' => @$page->header()->restaurant['serves_cuisine'],
+                    'priceRange'    => @$page->header()->restaurant['price_range'],
                     'image'         => @$restaurantImage,
                     'telephone'     => @$page->header()->restaurant['telephone'],
                 ];
             }
         }
 
-        if (property_exists($page->header(),'productenabled'))
+        if (property_exists($page->header(),'product_enabled'))
         {
-            if ($page->header()->productenabled
-                && $this->config['plugins']['seo']['product_type'])
+            if ($page->header()->product_enabled
+                && $this->config['plugins']['schema']['product_type'])
             {
                 if (isset($page->header()->product['image']))
                 {
@@ -477,18 +477,18 @@ class SchemaPlugin extends Plugin
                     }
                 }
 
-                if (isset($page->header()->product['addoffer']))
+                if (isset($page->header()->product['add_offer']))
                 {
-                    $offers = $page->header()->product['addoffer'];
+                    $offers = $page->header()->product['add_offer'];
 
                     foreach ($offers as $key => $value)
                     {
                         $offer[$key] = [
                             '@type'             => 'Offer',
-                            'priceCurrency'     => @$offers[$key]['offer_priceCurrency'],
+                            'priceCurrency'     => @$offers[$key]['offer_price_currency'],
                             'price'             => @$offers[$key]['offer_price'],
-                            'validFrom'         => @$offers[$key]['offer_validFrom'],
-                            'priceValidUntil'   => @$offers[$key]['offer_validUntil'],
+                            'validFrom'         => @$offers[$key]['offer_valid_from'],
+                            'priceValidUntil'   => @$offers[$key]['offer_valid_until'],
                             'availability'      => @$offers[$key]['offer_availability'],
                         ];
                     }
@@ -512,15 +512,15 @@ class SchemaPlugin extends Plugin
                     'image'             => @$productImage,
                     'aggregateRating'   => [
                         '@type'       => 'AggregateRating',
-                        'ratingValue' => @$page->header()->product['ratingValue'],
-                        'reviewCount' => @$page->header()->product['reviewCount'],
+                        'ratingValue' => @$page->header()->product['rating_value'],
+                        'reviewCount' => @$page->header()->product['review_count'],
                       
                     ]
                 ];
             }
         }
 
-        if (property_exists($page->header(), 'articleenabled'))
+        if (property_exists($page->header(), 'article_enabled'))
         {
             if (isset($page->header()->article['headline']))
             {
@@ -531,8 +531,8 @@ class SchemaPlugin extends Plugin
                 $headline = $page->title();
             }
 
-            if ($page->header()->articleenabled
-                && $this->config['plugins']['seo']['article_type'])
+            if ($page->header()->article_enabled
+                && $this->config['plugins']['schema']['article_type'])
             {
                 $microdata['article'] = [
                     '@context'          => 'http://schema.org',

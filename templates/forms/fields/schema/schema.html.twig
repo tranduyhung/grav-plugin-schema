@@ -1,112 +1,112 @@
 <script type="text/javascript">
 
-$("[name='data[header][articleenabled]']").click(function() {
+$("[name='data[header][article_enabled]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".togglearticle").show();
+        $(".toggle-article").show();
         console.log("show")
     } else {
-        $(".togglearticle").hide();
+        $(".toggle-article").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][articleenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][article_enabled]'][checked='checked']").val();
     if (status == 0) {
-        $(".togglearticle").hide();
+        $(".toggle-article").hide();
         console.log("show");
     }
 });
 
-$("[name='data[header][personenabled]']").click(function() {
+$("[name='data[header][person_enabled]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".toggleperson").show();
+        $(".toggle-person").show();
         console.log("show");
     } else {
-        $(".toggleperson").hide();
+        $(".toggle-person").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][personenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][person_enabled]'][checked='checked']").val();
     if (status == 0) {
-        $(".toggleperson").hide();
+        $(".toggle-person").hide();
         console.log("show");
 
     }
 });
 
-$("[name='data[header][eventenabled]']").click(function() {
+$("[name='data[header][event_enabled]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".toggleevent").show();
+        $(".toggle-event").show();
         console.log("show");
     } else {
-        $(".toggleevent").hide();
+        $(".toggle-event").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][eventenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][event_enabled]'][checked='checked']").val();
     if (status == 0) {
-        $(".toggleevent").hide();
+        $(".toggle-event").hide();
         console.log("show");
     }
 });
 
-$("[name='data[header][musicalbumenabled]']").click(function() {
+$("[name='data[header][music_album_enabled]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".togglemusicalbum").show();
+        $(".toggle-music-album").show();
         console.log("show");
     } else {
-        $(".togglemusicalbum").hide();
+        $(".toggle-music-album").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][musicalbumenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][music_album_enabled]'][checked='checked']").val();
     if (status == 0) {
-        $(".togglemusicalbum").hide();
+        $(".toggle-music-album").hide();
         console.log("show");
     }
 });
-$("[name='data[header][restaurantenabled]']").click(function() {
+$("[name='data[header][restaurant_enabled]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".togglerestaurant").show();
+        $(".toggle-restaurant").show();
         console.log("show");
     } else {
-        $(".togglerestaurant").hide();
+        $(".toggle-restaurant").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][restaurantenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][restaurant_enabled]'][checked='checked']").val();
     if (status == 0) {
-        $(".togglerestaurant").hide();
+        $(".toggle-restaurant").hide();
         console.log("show");
     }
 });
-$("[name='data[header][musiceventenabled]']").click(function() {
+$("[name='data[header][enable_music_event]']").click(function() {
     var status = $(this).val();
     if (status != 0) {
-        $(".togglemusicevent").show();
+        $(".toggle-music-event").show();
         console.log("show");
     } else {
-        $(".togglemusicevent").hide();
+        $(".toggle-music-event").hide();
     }
 });
 
 $(document).ready(function() {
-    var status = $("[name='data[header][musiceventenabled]'][checked='checked']").val();
+    var status = $("[name='data[header][enable_music_event]'][checked='checked']").val();
     if (status == 0) {
-        $(".togglemusicevent").hide();
+        $(".toggle-music-event").hide();
         console.log("status = 0 hide musicevent");
     }
     else {
-        $(".togglemusicevent").show();  
+        $(".toggle-music-event").show();  
     };
         
     }
