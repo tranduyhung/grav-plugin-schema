@@ -1,0 +1,9 @@
+{% extends "forms/field.html.twig" %}
+ 
+{% block input %}
+    {% set route = admin.route == '' ? '/' : '/' ~ admin.route %}
+    {% set page_url = base_url_absolute|rtrim('/') ~ route %}
+    <a class="button" href="https://search.google.com/test/rich-results?url={{ page_url|url_encode }}" target="_blank">
+        <i class="fa fa-check"></i> {{ 'PLUGIN_SCHEMA.VALIDATE_BUTTON'|t }}
+    </a>
+{% endblock %}

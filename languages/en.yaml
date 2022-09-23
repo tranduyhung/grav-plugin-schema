@@ -154,3 +154,4 @@ PLUGIN_SCHEMA:
   PRODUCT_OFFER_VALID_UNTIL: Offer Valid Until
   RESTAURANT_MICRODATA: Restaurant Microdata
   ADD_RESTAURANT_ALBUM: Add Restaurant Microdata
+  VALIDATE_BUTTON: Validate This Page Microdata

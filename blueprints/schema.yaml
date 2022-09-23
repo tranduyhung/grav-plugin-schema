@@ -9,9 +9,7 @@ form:
           title: schema.org
           fields:
             header.validate_page:
-              type: display
-              markdown: true
-              content: '<a class="button" id="validate" onclick="validate_page()"><i class="fa fa-check"></i>Validate this page microdata</a>'
+              type: schemavalidation
             header.article_condition:
               type: conditional
               condition: "config.plugins.schema.article_type ? 'true' : 'false'"
