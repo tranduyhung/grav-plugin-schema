@@ -1,7 +1,7 @@
 PLUGIN_SCHEMA:
   ARTICLE_IMAGE: "Article Image"
-  DATE_PUBLISHED: "Published date"
-  DATE_MODIFIED: "Modification date"
+  DATE_PUBLISHED: "Published Date"
+  DATE_MODIFIED: "Modification Date"
   ARTICLE_DESCRIPTION: "Article Description"
   HEADLINE: "Headline"
   ENABLE_ARTICLE_MICRODATA: "Enable Article Microdata"
@@ -162,3 +162,9 @@ PLUGIN_SCHEMA:
   BEST_RATING_HELP: If omitted, 5 is assumed.
   WORST_RATING: Lowest Rating Value Allowed
   WORST_RATING_HELP: If omitted, 5 is assumed.
+  REVIEWS: Reviews
+  ADD_A_REVIEW: Add A Review
+  AUTHOR: Author
+  REVIEW_NAME: Title
+  REVIEW_BODY: Review
+  ENABLE_REVIEW_RATING: Has Rating
