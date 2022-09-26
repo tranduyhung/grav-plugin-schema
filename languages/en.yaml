@@ -155,3 +155,10 @@ PLUGIN_SCHEMA:
   RESTAURANT_MICRODATA: Restaurant Microdata
   ADD_RESTAURANT_ALBUM: Add Restaurant Microdata
   VALIDATE_BUTTON: Validate This Page Microdata
+  ENABLE_AGGREGATE_RATING: Enable Aggregate Rating
+  RATING_COUNT: Rating Count
+  RATING_VALUE: Rating Value
+  BEST_RATING: Highest Rating Value Allowed
+  BEST_RATING_HELP: If omitted, 5 is assumed.
+  WORST_RATING: Lowest Rating Value Allowed
+  WORST_RATING_HELP: If omitted, 5 is assumed.

@@ -6,4 +6,6 @@
     <a class="button" href="https://search.google.com/test/rich-results?url={{ page_url|url_encode }}" target="_blank">
         <i class="fa fa-check"></i> {{ 'PLUGIN_SCHEMA.VALIDATE_BUTTON'|t }}
     </a>
+
+    {% do assets.addJs('plugin://schema/js/schema.js', { 'group': 'bottom', 'loading': 'defer' }) %}
 {% endblock %}

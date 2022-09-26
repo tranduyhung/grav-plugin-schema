@@ -498,7 +498,7 @@ class SchemaPlugin extends Plugin
                     $offer = '';
                 }
 
-                $microdata[] = [
+                $product = [
                     '@context'  => 'http://schema.org',
                     '@type'     => 'Product',
                     'name'      => @$page->header()->product['name'],
@@ -510,13 +510,20 @@ class SchemaPlugin extends Plugin
                     'offers'            => $offer,
                     'description'       => @$page->header()->product['description'],
                     'image'             => @$productImage,
-                    'aggregateRating'   => [
-                        '@type'       => 'AggregateRating',
-                        'ratingValue' => @$page->header()->product['rating_value'],
-                        'reviewCount' => @$page->header()->product['review_count'],
-                      
-                    ]
                 ];
+
+                if (isset($page->header()->product['aggregate_rating']))
+                {
+                    $product['aggregateRating'] = [
+                        '@type'         => 'AggregateRating',
+                        'ratingValue'   => @$page->header()->product['rating_value'],
+                        'ratingCount'   => @$page->header()->product['rating_count'],
+                        'worstRating'   => @$page->header()->product['worst_rating'],
+                        'bestRating'    => @$page->header()->product['best_rating'],
+                    ];
+                }
+
+                $microdata[] = $product;
             }
         }
 
