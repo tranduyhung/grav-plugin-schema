@@ -154,13 +154,14 @@ class SchemaPlugin extends Plugin
         $uri = $this->grav['uri'];
         $route = $this->config->get('plugins.admin.route');
         $microdata = [];
+        $header = $page->header();
 
-        if (property_exists($page->header(), 'enable_music_event'))
+        if (property_exists($header, 'enable_music_event'))
         {
-            if (($page->header()->enable_music_event)
+            if (($header->enable_music_event)
                 && $this->config['plugins']['schema']['music_event_type'])
             {
-                $musicEventsArray = $page->header()->music_events;
+                $musicEventsArray = $header->music_events;
  
                 if (count($musicEventsArray) > 0)
                 {
@@ -229,12 +230,12 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(), 'article_enabled'))
+        if (property_exists($header, 'article_enabled'))
         {
-            if ($page->header()->event_enabled
+            if ($header->event_enabled
                 && $this->config['plugins']['schema']['event_type'])
             {
-                $eventsArray = @$page->header()->add_event;
+                $eventsArray = @$header->add_event;
 
                 if (count($eventsArray) > 0)
                 {
@@ -271,12 +272,12 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(), 'person_enabled'))
+        if (property_exists($header, 'person_enabled'))
         {
-            if ($page->header()->person_enabled
+            if ($header->person_enabled
                 && $this->config['plugins']['schema']['person_type'])
                 {
-                    $personarray = @$page->header()->add_person;
+                    $personarray = @$header->add_person;
 
                     if (count($personarray) > 0)
                     {
@@ -298,14 +299,14 @@ class SchemaPlugin extends Plugin
                 }
             }
 
-            if (property_exists($page->header(), 'organization_enabled'))
+            if (property_exists($header, 'organization_enabled'))
             {
-                if ($page->header()->organization_enabled
+                if ($header->organization_enabled
                     && $this->config['plugins']['schema']['organization_type'])
                 {
-                    if (isset($page->header()->orga['founders']))
+                    if (isset($header->orga['founders']))
                     {
-                        foreach ($page->header()->orga['founders'] as $founder)
+                        foreach ($header->orga['founders'] as $founder)
                         {
                             $founderArray[] = [
                                 '@type' => 'Person',
@@ -314,33 +315,33 @@ class SchemaPlugin extends Plugin
                         }
                     }
 
-                    if (isset($page->header()->orga['similar']))
+                    if (isset($header->orga['similar']))
                     {
-                        foreach ($page->header()->orga['similar'] as $similar)
+                        foreach ($header->orga['similar'] as $similar)
                         {
                             $similarArray[] = $similar['same_as'];
                         }
                     }
 
-                    if (isset($page->header()->orga['area_served']))
+                    if (isset($header->orga['area_served']))
                     {
-                        foreach ($page->header()->orga['area_served'] as $areaServed)
+                        foreach ($header->orga['area_served'] as $areaServed)
                         {
                             $areaServedArray[] = $areaServed['area'];
                         }
                     }
 
-                    if (isset($page->header()->orga['opening_hours']))
+                    if (isset($header->orga['opening_hours']))
                     {
-                        foreach ($page->header()->orga['opening_hours'] as $hours)
+                        foreach ($header->orga['opening_hours'] as $hours)
                         {
                             $openingHours[] = $hours['entry'];
                         }
                     }
 
-                    if (isset($page->header()->orga['offer_catalog']))
+                    if (isset($header->orga['offer_catalog']))
                     {
-                        foreach ($page->header()->orga['offer_catalog'] as $offer)
+                        foreach ($header->orga['offer_catalog'] as $offer)
                         {
                             if (array_key_exists('offered_item', $offer))
                             {
@@ -375,14 +376,14 @@ class SchemaPlugin extends Plugin
                     }
                 }
 
-                if (property_exists($page->header(),'organization_rating_enabled'))
+                if (property_exists($header,'organization_rating_enabled'))
                 {
-                    if ($page->header()->organization_rating_enabled)
+                    if ($header->organization_rating_enabled)
                     {
                         $orgaRating = [
                             '@type'         => 'AggregateRating',
-                            'ratingValue'   => @$page->header()->orga['rating_value'],
-                            'reviewCount'   => @$page->header()->orga['review_count'],
+                            'ratingValue'   => @$header->orga['rating_value'],
+                            'reviewCount'   => @$header->orga['review_count'],
                         ];
                     } 
                 } 
@@ -390,27 +391,27 @@ class SchemaPlugin extends Plugin
                 $microdata[] = [
                     '@context'      => 'http://schema.org',
                     '@type'         => 'Organization',
-                    'name'          => @$page->header()->orga['name'],
-                    'legalName'     => @$page->header()->orga['legal_name'],
-                    'taxId'         => @$page->header()->orga['tax_id'],
-                    'vatId'         => @$page->header()->orga['vat_id'],
+                    'name'          => @$header->orga['name'],
+                    'legalName'     => @$header->orga['legal_name'],
+                    'taxId'         => @$header->orga['tax_id'],
+                    'vatId'         => @$header->orga['vat_id'],
                     'areaServed'    => @$areaServedArray,
-                    'description'   => @$page->header()->orga['description'],
+                    'description'   => @$header->orga['description'],
                     'address'       => [
                         '@type'             => 'PostalAddress',
-                        'streetAddress'     => @$page->header()->orga['street_address'],
-                        'addressLocality'   => @$page->header()->orga['city'],
-                        'addressRegion'     => @$page->header()->orga['state'],
-                        'postalCode'        => @$page->header()->orga['zip_code'],
+                        'streetAddress'     => @$header->orga['street_address'],
+                        'addressLocality'   => @$header->orga['city'],
+                        'addressRegion'     => @$header->orga['state'],
+                        'postalCode'        => @$header->orga['zip_code'],
                     ],
-                    'telephone'         => @$page->header()->orga['phone'],
-                    'logo'              => @$page->header()->orga['logo'],
-                    'url'               => @$page->header()->orga['url'],
+                    'telephone'         => @$header->orga['phone'],
+                    'logo'              => @$header->orga['logo'],
+                    'url'               => @$header->orga['url'],
                     'openingHours'      => @$openingHours,
-                    'email'             => @$page->header()->orga['email'],
-                    'foundingDate'      => @$page->header()->orga['founding_date'],
+                    'email'             => @$header->orga['email'],
+                    'foundingDate'      => @$header->orga['founding_date'],
                     'aggregateRating'   => @$orgaRating,
-                    'paymentAccepted'   => @$page->header()->orga['paymentAccepted'],
+                    'paymentAccepted'   => @$header->orga['paymentAccepted'],
                     'founders'          => @$founderArray,
                     'sameAs'            => @$similarArray,
                     'hasOfferCatalog'   => @$offerArray
@@ -418,14 +419,14 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(),'restaurant_enabled'))
+        if (property_exists($header,'restaurant_enabled'))
         {
-            if ($page->header()->restaurant_enabled
+            if ($header->restaurant_enabled
                 && $this->config['plugins']['schema']['restaurant_type'])
             {
-                if (isset($page->header()->restaurant['image']))
+                if (isset($header->restaurant['image']))
                 {
-                    $imageUrl = $page->header()->restaurant['image'];
+                    $imageUrl = $header->restaurant['image'];
                     $imageData = $this->seoGetimage($imageUrl);
                     $restaurantImage = [
                         '@type'     => 'ImageObject',
@@ -438,32 +439,32 @@ class SchemaPlugin extends Plugin
                 $microdata[] = [
                     '@context'  => 'http://schema.org',
                     '@type'     => 'Restaurant',
-                    'name'      => @$page->header()->restaurant['name'],
+                    'name'      => @$header->restaurant['name'],
                     'address'   => [
                         '@type'             => 'PostalAddress',
-                        'addressLocality'   => @$page->header()->restaurant['address_address_locality'],
-                        'addressRegion'     => @$page->header()->restaurant['address_address_region'],
-                        'streetAddress'     => @$page->header()->restaurant['address_street_address'],
-                        'postalCode'        => @$page->header()->restaurant['address_postal_code'],
+                        'addressLocality'   => @$header->restaurant['address_address_locality'],
+                        'addressRegion'     => @$header->restaurant['address_address_region'],
+                        'streetAddress'     => @$header->restaurant['address_street_address'],
+                        'postalCode'        => @$header->restaurant['address_postal_code'],
                     ],
                     'areaServed'    => @$areaServedArray,
-                    'servesCuisine' => @$page->header()->restaurant['serves_cuisine'],
-                    'priceRange'    => @$page->header()->restaurant['price_range'],
+                    'servesCuisine' => @$header->restaurant['serves_cuisine'],
+                    'priceRange'    => @$header->restaurant['price_range'],
                     'image'         => @$restaurantImage,
-                    'telephone'     => @$page->header()->restaurant['telephone'],
+                    'telephone'     => @$header->restaurant['telephone'],
                 ];
             }
         }
 
-        if (property_exists($page->header(),'product_enabled'))
+        if (property_exists($header,'product_enabled'))
         {
-            if ($page->header()->product_enabled
+            if ($header->product_enabled
                 && $this->config['plugins']['schema']['product_type'])
             {
-                if (isset($page->header()->product['image']))
+                if (isset($header->product['image']))
                 {
                     $productImageArray = []; 
-                    $productImages = $page->header()->product['image'];
+                    $productImages = $header->product['image'];
 
                     foreach ($productImages as $key => $value)
                     {
@@ -477,9 +478,9 @@ class SchemaPlugin extends Plugin
                     }
                 }
 
-                if (isset($page->header()->product['add_offer']))
+                if (isset($header->product['add_offer']))
                 {
-                    $offers = $page->header()->product['add_offer'];
+                    $offers = $header->product['add_offer'];
 
                     foreach ($offers as $key => $value)
                     {
@@ -501,25 +502,25 @@ class SchemaPlugin extends Plugin
                 $product = [
                     '@context'  => 'http://schema.org',
                     '@type'     => 'Product',
-                    'name'      => @$page->header()->product['name'],
-                    'category'  => @$page->header()->product['category'],
+                    'name'      => @$header->product['name'],
+                    'category'  => @$header->product['category'],
                     'brand'     => [
                         '@type' => 'Thing',
-                        'name'  => @$page->header()->product['brand'],
+                        'name'  => @$header->product['brand'],
                     ],
-                    'offers'            => $offer,
-                    'description'       => @$page->header()->product['description'],
-                    'image'             => @$productImage,
+                    'offers'        => $offer,
+                    'description'   => @$header->product['description'],
+                    'image'         => @$productImage,
                 ];
 
-                if (isset($page->header()->product['aggregate_rating']))
+                if (isset($header->product['aggregate_rating']))
                 {
                     $product['aggregateRating'] = [
                         '@type'         => 'AggregateRating',
-                        'ratingValue'   => @$page->header()->product['rating_value'],
-                        'ratingCount'   => @$page->header()->product['rating_count'],
-                        'worstRating'   => @$page->header()->product['worst_rating'],
-                        'bestRating'    => @$page->header()->product['best_rating'],
+                        'ratingValue'   => @$header->product['rating_value'],
+                        'ratingCount'   => @$header->product['rating_count'],
+                        'worstRating'   => @$header->product['worst_rating'],
+                        'bestRating'    => @$header->product['best_rating'],
                     ];
                 }
 
@@ -527,18 +528,18 @@ class SchemaPlugin extends Plugin
             }
         }
 
-        if (property_exists($page->header(), 'article_enabled'))
+        if (property_exists($header, 'article_enabled'))
         {
-            if (isset($page->header()->article['headline']))
+            if (isset($header->article['headline']))
             {
-               $headline =  $page->header()->article['headline'];
+               $headline =  $header->article['headline'];
             }
             else
             {
                 $headline = $page->title();
             }
 
-            if ($page->header()->article_enabled
+            if ($header->article_enabled
                 && $this->config['plugins']['schema']['article_type'])
             {
                 $microdata['article'] = [
@@ -554,29 +555,29 @@ class SchemaPlugin extends Plugin
                     'dateModified'  => @date("c", $page->modified()),
                 ];
 
-                if (isset($page->header()->article['description']))
+                if (isset($header->article['description']))
                 {
-                    $microdata['article']['description'] = $page->header()->article['description'];
+                    $microdata['article']['description'] = $header->article['description'];
                 }
                 else
                 {
                     $microdata['article']['description'] = substr($content, 0, 140);
                 }
 
-                if (isset($page->header()->article['author']))
+                if (isset($header->article['author']))
                 {
-                    $microdata['article']['author'] = $page->header()->article['author'];
+                    $microdata['article']['author'] = $header->article['author'];
                 }
  
-                if (isset($page->header()->article['publisher_name']))
+                if (isset($header->article['publisher_name']))
                 {
                     $microdata['article']['publisher']['@type'] = 'Organization';
-                    $microdata['article']['publisher']['name']  = @$page->header()->article['publisher_name'];
+                    $microdata['article']['publisher']['name']  = @$header->article['publisher_name'];
                 }
 
-                if (isset($page->header()->article['publisher_logo_url']))
+                if (isset($header->article['publisher_logo_url']))
                 {
-                    $publisherlogourl = $page->header()->article['publisher_logo_url'];
+                    $publisherlogourl = $header->article['publisher_logo_url'];
                     $imageData = $this->seoGetimage($publisherlogourl);
                     $microdata['article']['publisher']['logo']['@type']     = 'ImageObject';
                     $microdata['article']['publisher']['logo']['url']       = $this->grav['uri']->base() . $imageData['url'];
@@ -585,9 +586,9 @@ class SchemaPlugin extends Plugin
 
                 }
  
-                if (isset($page->header()->article['image_url']))
+                if (isset($header->article['image_url']))
                 {
-                    $imageUrl = $page->header()->article['image_url'];
+                    $imageUrl = $header->article['image_url'];
                     $imageData = $this->seoGetimage($imageUrl);
                     $microdata['article']['image']['@type']     = 'ImageObject';
                     $microdata['article']['image']['url']       = $this->grav['uri']->base() . $imageData['url'];
