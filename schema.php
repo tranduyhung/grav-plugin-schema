@@ -524,6 +524,37 @@ class SchemaPlugin extends Plugin
                     ];
                 }
 
+                if (isset($header->product['reviews']))
+                {
+                    $product['review'] = [];
+
+                    foreach ($header->product['reviews'] as $r)
+                    {
+                        $review = [
+                            '@type'         => 'Review',
+                            'author'        => [
+                                '@type' => 'Person',
+                                'name'  => @$r['author'],
+                            ],
+                            'datePublished' => @$r['date_published'],
+                            'name'          => @$r['name'],
+                            'reviewBody'    => @$r['review_body'],
+                        ];
+
+                        if (@$r['review_rating'])
+                        {
+                            $review['reviewRating'] = [
+                                '@type'         => 'Rating',
+                                'bestRating'    => @$r['best_rating'],
+                                'ratingValue'   => @$r['rating_value'],
+                                'worstRating'   => @$r['worst_rating'],
+                            ];
+                        }
+
+                        $product['review'][] = $review;
+                    }
+                }
+
                 $microdata[] = $product;
             }
         }
