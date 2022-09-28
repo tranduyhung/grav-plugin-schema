@@ -21,7 +21,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.article_enabled:
+                    header.schema.article_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_ARTICLE_MICRODATA
@@ -31,36 +31,36 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.article.headline:
+                    header.schema.article.headline:
                       type: text
                       label: PLUGIN_SCHEMA.HEADLINE
                       placeholder: PLUGIN_SCHEMA.ARTICLE_PLACEHOLDER
-                    header.article.datePublished:
+                    header.schema.article.datePublished:
                       type: datetime
                       label: PLUGIN_SCHEMA.DATE_PUBLISHED
-                    header.article.dateModified:
+                    header.schema.article.dateModified:
                       type: datetime
                       label: PLUGIN_SCHEMA.DATE_MODIFIED
-                    header.article.description:
+                    header.schema.article.description:
                       type: textarea
                       rows: 5
                       label: PLUGIN_SCHEMA.ARTICLE_DESCRIPTION
                       placeholder: PLUGIN_SCHEMA.ARTICLE_DESC_PLACEHOLDER
                       field_classes: toggle-article
-                    header.article.image_url:
+                    header.schema.article.image_url:
                       type: mediapicker
                       label: PLUGIN_SCHEMA.ARTICLE_IMAGE
                       field_classes: toggle-article
-                    header.article.author:
+                    header.schema.article.author:
                       type: text
                       label: PLUGIN_SCHEMA.ARTICLE_AUTHOR
                       field_classes: toggle-article
-                    header.article.publisher_logo_url:
+                    header.schema.article.publisher_logo_url:
                       type: mediapicker
                       label: PLUGIN_SCHEMA.PUBLISHER_LOGO
                       disabled: false
                       field_classes: toggle-article
-                    header.article.publisher_name:
+                    header.schema.article.publisher_name:
                       type: text
                       label: PLUGIN_SCHEMA.PUBLISHER_NAME
                       field_classes: toggle-article
@@ -75,7 +75,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.enable_music_event:
+                    header.schema.music_event_enabled:
                       type: toggle
                       label: PLUGIN_SCHEMA.ENABLE_MUSIC_EVENT
                       highlight: 1
@@ -85,7 +85,7 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.music_events:
+                    header.schema.music_events:
                       type: list
                       label: PLUGIN_SCHEMA.ADD_MUSIC_EVENT_MICRODATA
                       style: vertical
@@ -153,7 +153,7 @@ form:
                           field_classes: toggle-music-event
                           placeholder: USD
 
-                        .music_event_performer:
+                        .music_event_performers:
                           type: list
                           label: PLUGIN_SCHEMA.ADD_PERFORMER
                           field_classes: toggle-music-event
@@ -206,7 +206,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.organization_enabled:
+                    header.schema.organization_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_ORGANIZATION_MICRODATA
@@ -216,34 +216,34 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.orga.name:
+                    header.schema.organization.name:
                       type: text
                       label: PLUGIN_SCHEMA.ORGANIZATION_NAME
-                    header.orga.description:
+                    header.schema.organization.description:
                       type: text
                       label: PLUGIN_SCHEMA.ORGANIZATION_DESC
-                    header.orga.legal_name:
+                    header.schema.organization.legal_name:
                       type: text
                       label: PLUGIN_SCHEMA.LEGAL_NAME
-                    header.orga.tax_id:
+                    header.schema.organization.tax_id:
                       type: text
                       label: PLUGIN_SCHEMA.TAX_ID
-                    header.orga.vat_id:
+                    header.schema.organization.vat_id:
                       type: text
                       label: PLUGIN_SCHEMA.VAT_ID
-                    header.orga.street_address:
+                    header.schema.organization.street_address:
                       type: text
                       label: PLUGIN_SCHEMA.STREET
-                    header.orga.city:
+                    header.schema.organization.city:
                       type: text
                       label: PLUGIN_SCHEMA.CITY
-                    header.orga.state:
+                    header.schema.organization.state:
                       type: text
                       label: PLUGIN_SCHEMA.STATE
-                    header.orga.zip_code:
+                    header.schema.organization.zip_code:
                       type: text
                       label: PLUGIN_SCHEMA.ZIP_CODE
-                    header.orga.area_served:
+                    header.schema.organization.area_served:
                       type: list
                       label: PLUGIN_SCHEMA.AREA_SERVERED
                       btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
@@ -253,18 +253,18 @@ form:
                           style: vertical
                           label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
                           placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER
-                    header.orga.phone:
+                    header.schema.organization.phone:
                       type: text
                       label: PLUGIN_SCHEMA.ORGANIZATION_PHONE
-                    header.orga.url:
+                    header.schema.organization.url:
                       type: text
                       label: PLUGIN_SCHEMA.ORGANIZATION_WEBSITE
                       placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
-                    header.orga.logo:
+                    header.schema.organization.logo:
                       type: text
                       label: PLUGIN_SCHEMA.ORGANIZATION_LOGO
                       placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
-                    header.organization_rating_enabled:
+                    header.schema.organization_rating_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_ORGANIZATION_RATING
@@ -274,18 +274,18 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.orga.rating_value:
+                    header.schema.organization.rating_value:
                       type: range
                       label: PLUGIN_SCHEMA.STAR_RATING
                       validate:
                         min: 0
                         max: 5
                         step: 0.1
-                    header.orga.review_count:
+                    header.schema.organization.review_count:
                       type: number
                       label: PLUGIN_SCHEMA.REVIEW_COUNT
                       size: small
-                    header.orga.opening_hours:
+                    header.schema.organization.opening_hours:
                       type: list
                       label: PLUGIN_SCHEMA.OPENING_HOURS
                       btnLabel: PLUGIN_SCHEMA.ADD_OPENING_HOURS
@@ -296,14 +296,14 @@ form:
                           label: PLUGIN_SCHEMA.OPENING_HOURS_INSTRUCTION
                           placeholder: PLUGIN_SCHEMA.OPENING_HOURS_PLACEHOLDER
 
-                    header.orga.founding_date:
+                    header.schema.organization.founding_date:
                       type: text
                       label: PLUGIN_SCHEMA.FOUNDING_DATE
-                    header.orga.email:
+                    header.schema.organization.email:
                       type: email
                       label: PLUGIN_SCHEMA.ORGANIZATION_EMAIL
 
-                    header.orga.founders:
+                    header.schema.organization.founders:
                       type: list
                       label: PLUGIN_SCHEMA.FOUNDERS
                       btnLabel: PLUGIN_SCHEMA.ADD_A_FOUNDER
@@ -311,7 +311,7 @@ form:
                         .name:
                           type: text
                           label: PLUGIN_SCHEMA.FOUNDER_NAME
-                    header.orga.similar:
+                    header.schema.organization.similars:
                       type: list
                       label: PLUGIN_SCHEMA.SAME_AS
                       fields:
@@ -320,7 +320,7 @@ form:
                           style: vertical
                           label: PLUGIN_SCHEMA.ORGANIZATION_SAME_AS
                           placeholder: "http://wikipedia.org/en/companyname"
-                    header.orga.offer_catalog:
+                    header.schema.organization.offer_catalog:
                       type: list
                       label: PLUGIN_SCHEMA.OFFER_CATALOG
                       btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
@@ -368,7 +368,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.event_enabled:
+                    header.schema.event_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_EVENT
@@ -378,7 +378,7 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.add_event:
+                    header.schema.events:
                       type: list
                       style: vertical
                       btnLabel: PLUGIN_SCHEMA.ADD_AN_EVENT
@@ -439,7 +439,7 @@ form:
                   icon: address-card-o
                   collapsible: true
                   fields:
-                    header.person_enabled:
+                    header.schema.person_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_PERSON
@@ -449,7 +449,7 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.add_person:
+                    header.schema.persons:
                       type: list
                       style: vertical
                       btnLabel: PLUGIN_SCHEMA.ADD_A_PERSON
@@ -483,7 +483,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.music_album_enabled:
+                    header.schema.music_album_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ADD_MUSIC_ALBUM
@@ -493,7 +493,7 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.music_albums:
+                    header.schema.music_albums:
                       type: list
                       style: vertical
                       btnLabel: PLUGIN_SCHEMA.ADD_A_MUSIC_ALBUM
@@ -553,7 +553,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.product_enabled:
+                    header.schema.product_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ADD_PRODUCT_ALBUM
@@ -563,20 +563,20 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.product.name:
+                    header.schema.product.name:
                       type: text
                       label: PLUGIN_SCHEMA.PRODUCT_NAME
                       field_classes: toggle-restaurant
-                    header.product.category:
+                    header.schema.product.category:
                       type: text
                       label: PLUGIN_SCHEMA.PRODUCT_CATEGORY
-                    header.product.brand:
+                    header.schema.product.brand:
                       type: text
                       label: PLUGIN_SCHEMA.PRODUCT_BRAND
-                    header.product.brandlogo:
+                    header.schema.product.brandlogo:
                       type: mediapicker
                       label: PLUGIN_SCHEMA.PRODUCT_LOGO
-                    header.product.image:
+                    header.schema.product.image:
                       type: list
                       label: PLUGIN_SCHEMA.PRODUCT_IMAGE
                       style: vertical
@@ -585,11 +585,11 @@ form:
                         .product_img:
                           type: mediapicker
                           label: PLUGIN_SCHEMA.CHOOSE_AN_IMAGE
-                    header.product.description:
+                    header.schema.product.description:
                       type: textarea
                       rows: 5
                       label: PLUGIN_SCHEMA.PRODUCT_DESCRIPTION
-                    header.product.add_offer:
+                    header.schema.product.offers:
                       type: list
                       label: PLUGIN_SCHEMA.PRODUCT_OFFERS
                       btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
@@ -623,7 +623,7 @@ form:
                           label: PLUGIN_SCHEMA.PRICE_CURRENCY
                           type: text
                           placeholder: USD
-                    header.product.aggregate_rating:
+                    header.schema.product.aggregate_rating:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ENABLE_AGGREGATE_RATING
@@ -634,7 +634,7 @@ form:
                       validate:
                         type: bool
                       classes: product-aggregate-rating-toggle-input
-                    header.product.rating_count:
+                    header.schema.product.rating_count:
                       type: number
                       label: PLUGIN_SCHEMA.RATING_COUNT
                       size: small
@@ -642,7 +642,7 @@ form:
                         type: number
                         min: 1
                       field_classes: product-aggregate-rating-toggle
-                    header.product.rating_value:
+                    header.schema.product.rating_value:
                       type: number
                       label: PLUGIN_SCHEMA.RATING_VALUE
                       size: small
@@ -651,7 +651,7 @@ form:
                         step: 0.5
                         min: 0
                       field_classes: product-aggregate-rating-toggle
-                    header.product.best_rating:
+                    header.schema.product.best_rating:
                       type: number
                       label: PLUGIN_SCHEMA.BEST_RATING
                       size: small
@@ -660,7 +660,7 @@ form:
                         type: number
                         min: 1
                       field_classes: product-aggregate-rating-toggle
-                    header.product.worst_rating:
+                    header.schema.product.worst_rating:
                       type: number
                       label: PLUGIN_SCHEMA.WORST_RATING
                       size: small
@@ -669,7 +669,7 @@ form:
                         type: number
                         min: 1
                       field_classes: product-aggregate-rating-toggle
-                    header.product.reviews:
+                    header.schema.product.reviews:
                       type: list
                       label: PLUGIN_SCHEMA.REVIEWS
                       btnLabel: PLUGIN_SCHEMA.ADD_A_REVIEW
@@ -738,7 +738,7 @@ form:
                   collapsed: true
                   collapsible: true
                   fields:
-                    header.restaurant_enabled:
+                    header.schema.restaurant_enabled:
                       type: toggle
                       highlight: 1
                       label: PLUGIN_SCHEMA.ADD_RESTAURANT_ALBUM
@@ -748,11 +748,11 @@ form:
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                    header.restaurant.name:
+                    header.schema.restaurant.name:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_NAME
                       field_classes: toggle-restaurant
-                    header.restaurant.accept_reservation:
+                    header.schema.restaurant.accept_reservation:
                       type: toggle
                       highlight: 'yes'
                       default: 'no'
@@ -760,20 +760,20 @@ form:
                       options:
                         'yes': PLUGIN_ADMIN.YES
                         'no': PLUGIN_ADMIN.NO
-                    header.restaurant.menu:
+                    header.schema.restaurant.menu:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_MENU_URL
                       field_classes: toggle-restaurant
-                    header.restaurant.image:
+                    header.schema.restaurant.image:
                       type: mediapicker
                       label: PLUGIN_SCHEMA.RESTAURANT_IMAGE
                       field_classes: toggle-restaurant
-                    header.restaurant.serves_cuisine:
+                    header.schema.restaurant.serves_cuisine:
                       placeholder: seafood
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_CUISINE
                       field_classes: toggle-restaurant
-                    header.restaurant.price_range:
+                    header.schema.restaurant.price_range:
                       type: select
                       label: PLUGIN_SCHEMA.RESTAURANT_PRICE_RANGE
                       field_classes: toggle-restaurant
@@ -781,23 +781,33 @@ form:
                         $: $
                         $$: $$
                         $$$: $$$
-                    header.restaurant.address_street_address:
+                    header.schema.restaurant.address_street_address:
                       type: text
                       label: PLUGIN_SCHEMA.STREET
                       field_classes: toggle-restaurant
-                    header.restaurant.address_address_locality:
+                    header.schema.restaurant.address_address_locality:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_LOCALITY
                       field_classes: toggle-restaurant
-                    header.restaurant.address_address_region:
+                    header.schema.restaurant.address_address_region:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_REGION
                       field_classes: toggle-restaurant
-                    header.restaurant.address_postal_code:
+                    header.schema.restaurant.address_postal_code:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_POSTAL_CODE
                       field_classes: toggle-restaurant
-                    header.restaurant.telephone:
+                    header.schema.restaurant.telephone:
                       type: text
                       label: PLUGIN_SCHEMA.RESTAURANT_TELEPHONE
                       field_classes: toggle-restaurant
+                    header.schema.restaurant.area_served:
+                      type: list
+                      label: PLUGIN_SCHEMA.AREA_SERVERED
+                      btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
+                      fields:
+                        .area:
+                          type: text
+                          style: vertical
+                          label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
+                          placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER

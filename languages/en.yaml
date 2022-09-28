@@ -104,7 +104,7 @@ PLUGIN_SCHEMA:
   ZIP_CODE: Zip Code
   AREA_SERVERED: Area Servered
   ADD_A_LOCATION: Add a location
-  AREA_SERVERED_AREA: The geographic area where a service or offered item is provided.
+  AREA_SERVERED_AREA: The geographic area where service/offered item is provided.
   AREA_SERVERED_AREA_PLACEHOLDER: One location per line
   ORGANIZATION_PHONE: Organization Phone
   ORGANIZATION_WEBSITE: Organization Website URL

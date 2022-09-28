@@ -145,6 +145,13 @@ class SchemaPlugin extends Plugin
     public function onPageInitialized()
     {
         $page = $this->grav['page'];
+        $header = $page->header();
+
+        if (!property_exists($header, 'schema'))
+        {
+            return;
+        }
+
         $config = $this->mergeConfig($page);
         $content = strip_tags($page->content());
         $assets = $this->grav['assets'];
@@ -154,472 +161,714 @@ class SchemaPlugin extends Plugin
         $uri = $this->grav['uri'];
         $route = $this->config->get('plugins.admin.route');
         $microdata = [];
-        $header = $page->header();
+        $schema = $header->schema;
 
-        if (property_exists($header, 'enable_music_event'))
+        if (array_key_exists('music_event_enabled', $schema)
+            && $schema['music_event_enabled']
+            && $this->config['plugins']['schema']['music_event_type'])
         {
-            if (($header->enable_music_event)
-                && $this->config['plugins']['schema']['music_event_type'])
+            $musicEventsArray = $schema['music_events'] ?? [];
+
+            if (count($musicEventsArray) > 0)
             {
-                $musicEventsArray = $header->music_events;
- 
-                if (count($musicEventsArray) > 0)
+                foreach ($musicEventsArray as $event)
                 {
-                    foreach ($musicEventsArray as $event)
-                    {
-                        if (isset($event['music_event_performer']))
-                        {
-                            foreach ($event['music_event_performer'] as $artist)
-                            {
-                                $performerarray[] = [
-                                    '@type'     => @$artist['performer_type'],
-                                    'name'      => @$artist['name'],
-                                    'sameAs'    => @$artist['sameAs'], 
-                                ];
-                            }
-                        }
+                    $artists = $event['music_event_performers'] ?? [];
 
-                        if (isset($event['music_event_work_performed']))
-                        {
-                            foreach ($event['music_event_work_performed'] as $work)
-                            {
-                                $workarray[] = [
-                                    'name'      => @$work['name'],
-                                    'sameAs'    => @$work['sameAs'], 
-                                ];
-                            }
-                        }
-
-                        if (isset($event['music_event_image']))
-                        {
-                            $imageUrl = $event['music_event_image'];
-                            $imageData = $this->seoGetimage($imageUrl);
-                            $musicEventImage = [
-                                '@type'     => 'ImageObject',
-                                'width'     => $imageData['width'],
-                                'height'    => $imageData['height'],
-                                'url'       => $this->grav['uri']->base() .  $imageData['url'],
-                            ];
-                        }
-
-                        $microdata[] = [
-                            '@context'  => 'http://schema.org',
-                            '@type'     => 'MusicEvent',
-                            'name'      => @$event['music_event_location_name'],
-                            'location'  => [
-                                '@type'     => 'MusicVenue',
-                                'name'      => @$event['music_event_location_name'],
-                                'address'   => @$event['music_event_location_address'],
-                            ],
-                            'description'   => @$event['music_event_description'],
-                            'url'           => @$event['music_event_url'],
-                            'performer'     => @$performerarray,
-                            'workPerformed' => @$workarray, 
-                            'image'         => @$musicEventImage,
-                            'offers'        => [
-                                '@type'         => 'Offer',
-                                'price'         => @$event['music_event_offers_price'],
-                                'priceCurrency' => @$event['music_event_offers_price_currency'],
-                                'url'           => @$event['music_event_offers_url'], 
-                            ],
-                            'startDate' => @date("c", strtotime($event['music_event_start_date'])),
-                            'endDate'   => @date("c", strtotime($event['music_event_end_date'])),
-                        ];
-                    }
-                }
-            }
-        }
-
-        if (property_exists($header, 'article_enabled'))
-        {
-            if ($header->event_enabled
-                && $this->config['plugins']['schema']['event_type'])
-            {
-                $eventsArray = @$header->add_event;
-
-                if (count($eventsArray) > 0)
-                {
-                    foreach ($eventsArray as $event)
-                    {
-                        $microdata[] = [
-                            '@context'  => 'http://schema.org',
-                            '@type'     => 'Event',
-                            'name'      => @$event['event_name'],
-                            'location'  => [
-                                '@type'     => 'Place',
-                                'name'      => @$event['event_location_name'],
-                                'address'   => [
-                                    '@type'             => 'PostalAddress',
-                                    'addressLocality'   => @$event['event_location_address_address_locality'],
-                                    'addressRegion'     => @$event['event_location_address_address_region'],
-                                    'streetAddress'     => @$event['event_location_streetAddress'],
-                                ],
-                                'url' => @$event['music_event_location_url'],
-                            ],
-                            'description'   => @$event['music_event_description'],
-                            'offers'        => [
-                                '@type'         => 'Offer',
-                                'price'         => @$event['event_offers_price'],
-                                'priceCurrency' => @$event['event_offers_currency'],
-                                'url'           => @$event['event_offers_url'], 
-                            ],
-                            'startDate'     => @date("c", strtotime($event['event_start_date'])),
-                            'endDate'       => @date("c", strtotime($event['event_end_date'])),
-                            'description'   => @$event['event_description'],
-                        ];
-                    }
-                }
-            }
-        }
-
-        if (property_exists($header, 'person_enabled'))
-        {
-            if ($header->person_enabled
-                && $this->config['plugins']['schema']['person_type'])
-                {
-                    $personarray = @$header->add_person;
-
-                    if (count($personarray) > 0)
-                    {
-                        foreach ($personarray as $person)
-                        {
-                            $microdata[] = [
-                                '@context'  => 'http://schema.org',
-                                '@type'     => 'Person',
-                                'name'      => @$person['person_name'],
-                                'address'    => [
-                                    '@type'             => 'PostalAddress',
-                                    'addressLocality'   => @$person['person_address_address_locality'],
-                                    'addressRegion'     => @$person['person_address_address_region'],
-                                ],
-                                'jobTitle' => @$person['person_jobTitle'],
-                            ];
-                        }
-                    }
-                }
-            }
-
-            if (property_exists($header, 'organization_enabled'))
-            {
-                if ($header->organization_enabled
-                    && $this->config['plugins']['schema']['organization_type'])
-                {
-                    if (isset($header->orga['founders']))
-                    {
-                        foreach ($header->orga['founders'] as $founder)
-                        {
-                            $founderArray[] = [
-                                '@type' => 'Person',
-                                'name'  => @$founder['name'],
-                            ];
-                        }
-                    }
-
-                    if (isset($header->orga['similar']))
-                    {
-                        foreach ($header->orga['similar'] as $similar)
-                        {
-                            $similarArray[] = $similar['same_as'];
-                        }
-                    }
-
-                    if (isset($header->orga['area_served']))
-                    {
-                        foreach ($header->orga['area_served'] as $areaServed)
-                        {
-                            $areaServedArray[] = $areaServed['area'];
-                        }
-                    }
-
-                    if (isset($header->orga['opening_hours']))
-                    {
-                        foreach ($header->orga['opening_hours'] as $hours)
-                        {
-                            $openingHours[] = $hours['entry'];
-                        }
-                    }
-
-                    if (isset($header->orga['offer_catalog']))
-                    {
-                        foreach ($header->orga['offer_catalog'] as $offer)
-                        {
-                            if (array_key_exists('offered_item', $offer))
-                            {
-                                foreach ($offer['offered_item'] as $service)
-                                {
-                                    $offerArray[] = [
-                                        '@type'             => 'OfferCatalog',
-                                        'name'              => @$offer['offer'],
-                                        'description'       => @$offer['description'],
-                                        'url'               => @$offer['url'],
-                                        'image'             => @$offer['image'],
-                                        'itemListElement'   => [
-                                            '@type' => 'Offer',
-                                            'itemOffered'   => [
-                                                '@type'     => 'Service',
-                                                'name'  => @$service['name'],
-                                                'url'   => @$service['url'],
-                                            ],
-                                        ],
-                                    ];
-                                }
-                            } else {
-
-                            $offerArray[] = [
-                                '@type'         => 'OfferCatalog',
-                                'name'          => @$offer['offer'],
-                                'description'   => @$offer['description'],
-                                'url'           => @$offer['url'],
-                                'image'         => @$offer['image'],
-                            ];
-                        }
-                    }
-                }
-
-                if (property_exists($header,'organization_rating_enabled'))
-                {
-                    if ($header->organization_rating_enabled)
-                    {
-                        $orgaRating = [
-                            '@type'         => 'AggregateRating',
-                            'ratingValue'   => @$header->orga['rating_value'],
-                            'reviewCount'   => @$header->orga['review_count'],
-                        ];
-                    } 
-                } 
-
-                $microdata[] = [
-                    '@context'      => 'http://schema.org',
-                    '@type'         => 'Organization',
-                    'name'          => @$header->orga['name'],
-                    'legalName'     => @$header->orga['legal_name'],
-                    'taxId'         => @$header->orga['tax_id'],
-                    'vatId'         => @$header->orga['vat_id'],
-                    'areaServed'    => @$areaServedArray,
-                    'description'   => @$header->orga['description'],
-                    'address'       => [
-                        '@type'             => 'PostalAddress',
-                        'streetAddress'     => @$header->orga['street_address'],
-                        'addressLocality'   => @$header->orga['city'],
-                        'addressRegion'     => @$header->orga['state'],
-                        'postalCode'        => @$header->orga['zip_code'],
-                    ],
-                    'telephone'         => @$header->orga['phone'],
-                    'logo'              => @$header->orga['logo'],
-                    'url'               => @$header->orga['url'],
-                    'openingHours'      => @$openingHours,
-                    'email'             => @$header->orga['email'],
-                    'foundingDate'      => @$header->orga['founding_date'],
-                    'aggregateRating'   => @$orgaRating,
-                    'paymentAccepted'   => @$header->orga['paymentAccepted'],
-                    'founders'          => @$founderArray,
-                    'sameAs'            => @$similarArray,
-                    'hasOfferCatalog'   => @$offerArray
-                ];
-            }
-        }
-
-        if (property_exists($header,'restaurant_enabled'))
-        {
-            if ($header->restaurant_enabled
-                && $this->config['plugins']['schema']['restaurant_type'])
-            {
-                if (isset($header->restaurant['image']))
-                {
-                    $imageUrl = $header->restaurant['image'];
-                    $imageData = $this->seoGetimage($imageUrl);
-                    $restaurantImage = [
-                        '@type'     => 'ImageObject',
-                        'width'     => $imageData['width'],
-                        'height'    => $imageData['height'],
-                        'url'       => $this->grav['uri']->base() .  $imageData['url'],
+                    $musicEvent = [
+                        '@context'  => 'http://schema.org',
+                        '@type'     => 'MusicEvent',
                     ];
-                }
 
-                $microdata[] = [
-                    '@context'  => 'http://schema.org',
-                    '@type'     => 'Restaurant',
-                    'name'      => @$header->restaurant['name'],
-                    'address'   => [
-                        '@type'             => 'PostalAddress',
-                        'addressLocality'   => @$header->restaurant['address_address_locality'],
-                        'addressRegion'     => @$header->restaurant['address_address_region'],
-                        'streetAddress'     => @$header->restaurant['address_street_address'],
-                        'postalCode'        => @$header->restaurant['address_postal_code'],
-                    ],
-                    'areaServed'    => @$areaServedArray,
-                    'servesCuisine' => @$header->restaurant['serves_cuisine'],
-                    'priceRange'    => @$header->restaurant['price_range'],
-                    'image'         => @$restaurantImage,
-                    'telephone'     => @$header->restaurant['telephone'],
-                ];
+                    $eventName = $event['music_event_name'] ?? '';
+                    if ($eventName) $musicEvent['name'] = $eventName;
+
+                    $eventDescription = $event['music_event_description'] ?? '';
+                    if ($eventDescription) $musicEvent['description'] = $eventDescription;
+
+                    $eventUrl = $event['music_event_url'] ?? '';
+                    if ($eventUrl) $musicEvent['url'] = $eventUrl;
+
+                    $locationName       = $event['music_event_location_name']       ?? '';
+                    $locationAddress    = $event['music_event_location_address']    ?? '';
+
+                    if ($locationName || $locationAddress)
+                    {
+                        $location = ['@type' => 'MusicVenue'];
+
+                        if ($locationName)      $location['name']       = $locationName;
+                        if ($locationAddress)   $location['address']    = $locationAddress;
+
+                        $musicEvent['location'] = $location;
+                    }
+
+                    $eventStartDate = $event['music_event_start_date']  ?? '';
+                    $eventEndDate   = $event['music_event_end_date']    ?? '';
+
+                    if ($eventStartDate)    $musicEvent['startDate']    = date('c', strtotime($eventStartDate));
+                    if ($eventEndDate)      $musicEvent['endDate']      = date('c', strtotime($eventEndDate));
+
+                    if (count($artists) > 0)
+                    {
+                        $musicEvent['performer'] = [];
+
+                        foreach ($artists as $artist)
+                        {
+                            $performerType  = $artist['performer_type'] ?? '';
+                            $name           = $artist['name']           ?? '';
+                            $sameAs         = $artist['sameAs']         ?? '';
+
+                            if ($performerType && $name)
+                            {
+                                $performer = [
+                                    '@type'     => $performerType,
+                                    'name'      => $name,
+                                ];
+
+                                if ($sameAs) $performer['sameAs'] = $sameAs;
+
+                                $musicEvent['performer'][] = $performer;
+                            }
+                        }
+                    }
+
+                    $works = $event['music_event_work_performed'] ?? [];
+
+                    if (count($works) > 0)
+                    {
+                        $musicEvent['workPerformed'] = [];
+
+                        foreach ($works as $w)
+                        {
+                            $name   = $work['name']     ?? '';
+                            $sameAs = $work['sameAs']   ?? '';
+
+                            if ($name)
+                            {
+                                $work = ['name' => $name];
+
+                                if ($sameAs) $work['sameAs'] = $sameAs;
+
+                                $musicEvent['workPerformed'][] = $work;
+                            }
+                        }
+                    }
+
+                    $imageUrl = $event['music_event_image'] ?? '';
+
+                    if ($imageUrl)
+                    {
+                        $imageData = $this->seoGetimage($imageUrl);
+                        $musicEvent['image'] = [
+                            '@type'     => 'ImageObject',
+                            'width'     => $imageData['width'],
+                            'height'    => $imageData['height'],
+                            'url'       => $this->grav['uri']->base() .  $imageData['url'],
+                        ];
+                    }
+
+                    $offerPrice         = $event['music_event_offers_price']            ?? '';
+                    $offerPriceCurrency = $event['music_event_offers_price_currency']   ?? '';
+                    $offerUrl           = $event['music_event_offers_url']              ?? '';
+
+                    if ($offerPrice || $offerPriceCurrency || $offerUrl)
+                    {
+                        $musicEvent['offers'] = ['@type'=> 'Offer'];
+
+                        if ($offerPrice)            $musicEvent['offers']['price']          = $offerPrice;
+                        if ($offerPriceCurrency)    $musicEvent['offers']['priceCurrency']  = $offerPriceCurrency;
+                        if ($offerUrl)              $musicEvent['offers']['url']            = $offerUrl;
+                    }
+
+                    $microdata[] = $musicEvent;
+                }
             }
         }
 
-        if (property_exists($header,'product_enabled'))
+        if (array_key_exists('event_enabled', $schema)
+            && $schema['event_enabled']
+            && $this->config['plugins']['schema']['event_type'])
         {
-            if ($header->product_enabled
-                && $this->config['plugins']['schema']['product_type'])
+            $events = $schema['events'] ?? [];
+
+            if (count($events) > 0)
             {
-                if (isset($header->product['image']))
+                foreach ($events as $e)
                 {
-                    $productImageArray = []; 
-                    $productImages = $header->product['image'];
+                    $event = [
+                        '@context'  => 'http://schema.org',
+                        '@type'     => 'Event',
+                    ];
 
-                    foreach ($productImages as $key => $value)
+                    $eventName = $e['event_name'] ?? '';
+                    if ($eventName) $event['name'] = $eventName;
+
+                    $eventDescription = $e['event_description'] ?? '';
+                    if ($eventDescription) $event['description'] = $eventDescription;
+
+                    $offerPrice         = $e['event_offers_price']      ?? '';
+                    $offerPriceCurrency = $e['event_offers_currency']   ?? '';
+                    $offerUrl           = $e['event_offers_url']        ?? '';
+
+                    if ($offerPrice || $offerPriceCurrency || $offerUrl)
                     {
-                        $imageArray = $productImages[$key];
+                        $offer = ['@type' => 'Offer'];
 
+                        if ($offerPrice)            $offer['price']         = $offerPrice;
+                        if ($offerPriceCurrency)    $offer['priceCurrency'] = $offerPriceCurrency;
+                        if ($offerUrl)              $offer['url']           = $offerUrl;
+
+                        $event['offers'] = $offer;
+                    }
+
+                    $eventStartDate = $e['event_start_date']  ?? '';
+                    $eventEndDate   = $e['event_end_date']    ?? '';
+
+                    if ($eventStartDate)    $event['startDate']    = date('c', strtotime($eventStartDate));
+                    if ($eventEndDate)      $event['endDate']      = date('c', strtotime($eventEndDate));
+
+                    $eventLocationName = $e['event_location_name'] ?? '';
+
+                    if ($eventLocationName)
+                    {
+                        $location = [
+                            '@type'     => 'Place',
+                            'name'      => $eventLocationName,
+                        ];
+
+                        $eventAddressLocality   = $e['event_location_address_address_locality'] ?? '';
+                        $eventAddressRegion     = $e['event_location_address_address_region']   ?? '';
+                        $eventStreetAddress     = $e['event_location_streetAddress']            ?? '';
+
+                        if ($eventAddressLocality || $eventAddressRegion || $eventStreetAddress)
+                        {
+                            $address = ['@type' => 'PostalAddress'];
+
+                            if ($eventAddressLocality)  $address['addressLocality'] = $eventAddressLocality;
+                            if ($eventAddressRegion)    $address['addressRegion']   = $eventAddressRegion;
+                            if ($eventStreetAddress)    $address['streetAddress']   = $eventStreetAddress;
+
+                            $location['address'] = $address;
+                        }
+
+                        $eventLocationUrl = $e['music_event_location_url'] ?? '';
+                        if ($eventLocationUrl) $location['url'] = $eventLocationUrl;
+
+                        $event['location'] = $location;
+                    }
+
+
+                    $microdata[] = $event;
+                }
+            }
+        }
+
+        if (array_key_exists('person_enabled', $schema)
+            && $schema['person_enabled']
+            && $this->config['plugins']['schema']['person_type'])
+        {
+            $persons = $schema['persons'] ?? [];
+
+            if (count($persons) > 0)
+            {
+                foreach ($persons as $p)
+                {
+                    $name = $p['person_name'] ?? '';
+
+                    if ($name)
+                    {
+                        $person = [
+                            '@context'  => 'http://schema.org',
+                            '@type'     => 'Person',
+                            'name'      => $name,
+                        ];
+
+                        $jobTitle = $p['person_jobTitle'] ?? '';
+                        if ($jobTitle) $person['jobTitle'] = $jobTitle;
+
+                        $addressLocality    = $p['person_address_address_locality'] ?? '';
+                        $addressRegion      = $p['person_address_address_region']   ?? '';
+
+                        if ($addressLocality || $addressRegion)
+                        {
+                            $address = ['@type' => 'PostalAddress'];
+
+                            if ($addressLocality)   $address['addressLocality'] = $addressLocality;
+                            if ($addressRegion)     $address['addressRegion']   = $addressRegion;
+
+                            $person['address'] = $address;
+                        }
+
+                        $microdata[] = $person;
+                    }
+                }
+            }
+        }
+
+        if (array_key_exists('organization_enabled', $schema)
+            && $schema['organization_enabled']
+            && $this->config['plugins']['schema']['organization_type']
+            && array_key_exists('organization', $schema))
+        {
+            $organization = [
+                '@context'      => 'http://schema.org',
+                '@type'         => 'Organization',
+            ];
+
+            $o = $schema['organization'];
+
+            $name = $o['name'] ?? '';
+            if ($name) $organization['name'] = $name;
+
+            $legalName = $o['legal_name'] ?? '';
+            if ($legalName) $organization['legalName'] = $legalName;
+
+            $taxId = $o['tax_id'] ?? '';
+            if ($taxId) $organization['taxId'] = $taxId;
+
+            $vatId = $o['vat_id'] ?? '';
+            if ($vatId) $organization['vatId'] = $vatId;
+
+            $description = $o['description'] ?? '';
+            if ($description) $organization['description'] = $description;
+
+            $telephone = $o['phone'] ?? '';
+            if ($telephone) $organization['phone'] = $telephone;
+
+            $logo = $o['logo'] ?? '';
+            if ($logo) $organization['logo'] = $logo;
+
+            $url = $o['url'] ?? '';
+            if ($url) $organization['url'] = $url;
+
+            $email = $o['email'] ?? '';
+            if ($email) $organization['email'] = $email;
+
+            $foundingDate = $o['founding_date'] ?? '';
+            if ($foundingDate) $organization['foundingDate'] = $foundingDate;
+
+            $streetAddress      = $o['street_address'] ?? '';
+            $addressLocality    = $o['city']           ?? '';
+            $addressRegion      = $o['state']          ?? '';
+            $postalCode         = $o['zip_code']       ?? '';
+
+            if ($streetAddress || $addressLocality || $addressRegion || $postalCode)
+            {
+                $address = ['@type' => 'PostalAddress'];
+
+                if ($streetAddress)     $address['streetAddress']   = $streetAddress;
+                if ($addressLocality)   $address['addressLocality'] = $addressLocality;
+                if ($addressLocality)   $address['addressLocality'] = $addressLocality;
+                if ($postalCode)        $address['postalCode']      = $postalCode;
+
+                $organization['address'] = $address;
+            }
+
+            $founders = $o['founders'] ?? [];
+
+            if (count($founders) > 0)
+            {
+                $organization['founders'] = [];
+
+                foreach ($founders as $founder)
+                {
+                    if (array_key_exists('name', $founder)
+                        && $founder['name'])
+                    {
+                        $organization['founders'][] = [
+                            '@type' => 'Person',
+                            'name'  => $founder['name'],
+                        ];
+                    }
+                }
+            }
+
+            $similars = $o['similars'] ?? [];
+
+            if (count($similars) > 0)
+            {
+                $organization['sameAs'] = [];
+
+                foreach ($similars as $similar)
+                {
+                    if (array_key_exists('same_as', $similar)) $organization['sameAs'][] = $similar['same_as'];
+                }
+            }
+
+            $areas = $o['area_served'] ?? [];
+
+            if (count($areas) > 0)
+            {
+                $organization['areaServed'] = [];
+
+                foreach ($areas as $areaServed)
+                {
+                    if (array_key_exists('area', $areaServed)) $organization['areaServed'][] = $areaServed['area'];
+                }
+            }
+
+            $hours = $o['opening_hours'] ?? [];
+
+            if (count($hours) > 0)
+            {
+                $organization['openingHours'] = [];
+
+                foreach ($hours as $hour)
+                {
+                    if (array_key_exists('entry', $hour)) $organization['openingHours'][] = $hour['entry'];
+                }
+            }
+
+            $offers = $o['offer_catalog'] ?? [];
+
+            if (count($offers) > 0)
+            {
+                $organization['hasOfferCatalog'] = [];
+
+                foreach ($offers as $offer)
+                {
+                    $offerName          = $offer['offer']       ?? '';
+                    $offerDescription   = $offer['description'] ?? '';
+                    $offerUrl           = $offer['url']         ?? '';
+                    $offerImage         = $offer['image']       ?? '';
+
+                    $offerCatalog = [
+                        '@type'         => 'OfferCatalog',
+                        'name'          => $offerName,
+                        'description'   => $offerDescription,
+                        'url'           => $offerUrl,
+                        'image'         => $offerImage,
+                    ];
+
+                    if (array_key_exists('offered_item', $offer)
+                        && $offer['offered_item'])
+                    {
+                        foreach ($offer['offered_item'] as $service)
+                        {
+                            $serviceName    = $service['name']  ?? '';
+                            $serviceUrl     = $service['url']   ?? '';
+
+                            if ($serviceName || $serviceUrl)
+                            {
+                                $itemOffered = [
+                                    '@type' => 'Offer',
+                                    'itemOffered'   => [
+                                        '@type'     => 'Service',
+                                    ],
+                                ];
+
+                                if ($serviceName)   $itemOffered['itemOffered']['name'] = $serviceName;
+                                if ($serviceUrl)    $itemOffered['itemOffered']['url']  = $serviceUrl;
+
+                                $offerCatalog['itemListElement'] = $offer;
+                            }
+                        }
+                    }
+
+                    $organization['hasOfferCatalog'][] = $offerCatalog;
+                }
+            }
+
+            if (array_key_exists('organization_rating_enabled', $schema)
+                && $schema['organization_rating_enabled'])
+            {
+                $ratingValue = $o['rating_value'] ?? '';
+                $reviewCount = $o['review_count'] ?? '';
+
+                if ($ratingValue || $reviewCount)
+                {
+                    $orgaRating = ['@type' => 'AggregateRating'];
+
+                    if ($ratingValue) $orgaRating['ratingValue'] = $ratingValue;
+                    if ($reviewCount) $orgaRating['reviewCount'] = $reviewCount;
+
+                    $organization['aggregateRating'] = $orgaRating;
+                }
+            }
+
+            $microdata[] = $organization;
+        }
+
+        if (array_key_exists('restaurant_enabled', $schema)
+            && $schema['restaurant_enabled']
+            && $this->config['plugins']['schema']['restaurant_type']
+            && array_key_exists('restaurant', $schema))
+        {
+            $restaurant = [
+                '@context'  => 'http://schema.org',
+                '@type'     => 'Restaurant',
+            ];
+
+            $r = $schema['restaurant'];
+
+            $name = $r['name'] ?? '';
+            if ($name) $restaurant['name'] = $name;
+
+            $imageUrl = $r['image'] ?? '';
+
+            if ($imageUrl)
+            {
+                $imageData = $this->seoGetimage($imageUrl);
+                $restaurant['image'] = [
+                    '@type'     => 'ImageObject',
+                    'width'     => $imageData['width'],
+                    'height'    => $imageData['height'],
+                    'url'       => $this->grav['uri']->base() .  $imageData['url'],
+                ];
+            }
+
+            $addressLocality    = $r['address_address_locality']    ?? '';
+            $addressRegion      = $r['address_address_region']      ?? '';
+            $streetAddress      = $r['address_street_address']      ?? '';
+            $postalCode         = $r['address_postal_code']         ?? '';
+
+            if ($addressLocality || $addressRegion || $streetAddress || $postalCode)
+            {
+                $address = ['@type' => 'PostalAddress'];
+
+                if ($addressLocality)   $address['addressLocality'] = $addressLocality;
+                if ($addressRegion)     $address['addressRegion']   = $addressRegion;
+                if ($streetAddress)     $address['streetAddress']   = $streetAddress;
+                if ($postalCode)        $address['postalCode']      = $postalCode;
+
+                $restaurant['address'] = $address;
+            }
+
+            $areas = $r['area_served'] ?? [];
+
+            if (count($areas) > 0)
+            {
+                $organization['areaServed'] = [];
+
+                foreach ($areas as $areaServed)
+                {
+                    if (array_key_exists('area', $areaServed)) $restaurant['areaServed'][] = $areaServed['area'];
+                }
+            }
+
+            $servesCuisine = $r['serves_cuisine'] ?? '';
+            if ($servesCuisine) $restaurant['servesCuisine'] = $servesCuisine;
+
+            $priceRange = $r['price_range'] ?? '';
+            if ($priceRange) $restaurant['priceRange'] = $priceRange;
+
+            $telephone = $r['telephone'] ?? '';
+            if ($telephone) $restaurant['telephone'] = $telephone;
+
+            $microdata[] = $restaurant;
+        }
+
+        if (array_key_exists('product_enabled', $schema)
+            && $schema['product_enabled']
+            && $this->config['plugins']['schema']['product_type']
+            && array_key_exists('product', $schema))
+        {
+            $product = [
+                '@context'  => 'http://schema.org',
+                '@type'     => 'Product',
+            ];
+
+            $name = $p['name'] ?? '';
+            if ($name) $product['name'] = $name;
+
+            $category = $p['category'] ?? '';
+            if ($category) $product['category'] = $category;
+
+            $description = $p['description'] ?? '';
+            if ($description) $product['description'] = $description;
+
+            $brand = $p['brand'] ?? '';
+
+            if ($brand)
+            {
+                $product['brand'] = [
+                    '@type' => 'Thing',
+                    'name'  => $brand,
+                ];
+            }
+
+            $p = $schema['product'];
+
+            $productImages = $p['image'] ?? [];
+
+            if (count($productImages) > 0)
+            {
+                $product['image'] = []; 
+
+                foreach ($productImages as $key => $value)
+                {
+                    $imageArray = $productImages[$key] ?? [];
+
+                    if (count($imageArray) > 0)
+                    {
                         foreach($imageArray as $newKey => $newValue)
                         {
                             $imageData = $this->seoGetimage($imageArray[$newKey]);
-                            $productImage[] = $this->grav['uri']->base() .  $imageData['url'];
+                            $product['image'][] = $this->grav['uri']->base() .  $imageData['url'];
                         }
                     }
                 }
+            }
 
-                if (isset($header->product['add_offer']))
+            $offers = $p['offers'] ?? [];
+
+            if (count($offers) > 0)
+            {
+                $product['offers'] = [];
+
+                foreach ($offers as $key => $value)
                 {
-                    $offers = $header->product['add_offer'];
+                    $priceCurrency  = $offers[$key]['offer_price_currency'] ?? '';
+                    $price          = $offers[$key]['offer_price']          ?? '';
+                    $validFrom      = $offers[$key]['offer_valid_from']     ?? '';
+                    $validUntil     = $offers[$key]['offer_valid_until']    ?? '';
+                    $availability   = $offers[$key]['offer_availability']   ?? '';
 
-                    foreach ($offers as $key => $value)
+                    $product['offers'][$key] = [
+                        '@type'             => 'Offer',
+                        'priceCurrency'     => $priceCurrency,
+                        'price'             => $price,
+                        'validFrom'         => $validFrom,
+                        'priceValidUntil'   => $validUntil,
+                        'availability'      => $availability,
+                    ];
+                }
+            }
+
+            $aggregateRating = $p['aggregate_rating'] ?? false;
+
+            if ($aggregateRating)
+            {
+                $ratingValue    = $p['rating_value']    ?? '';
+                $ratingCount    = $p['rating_count']    ?? '';
+                $worstRating    = $p['worst_rating']    ?? '';
+                $bestRating     = $p['best_rating']     ?? '';
+
+                $product['aggregateRating'] = [
+                    '@type'         => 'AggregateRating',
+                    'ratingValue'   => $ratingValue,
+                    'ratingCount'   => $ratingCount,
+                    'worstRating'   => $worstRating,
+                    'bestRating'    => $bestRating,
+                ];
+            }
+
+            $reviews = $p['reviews'] ?? [];
+
+            if (count($reviews) > 0)
+            {
+                $product['review'] = [];
+
+                foreach ($reviews as $r)
+                {
+                    $author         = $r['author']          ?? '';
+                    $datePublished  = $r['date_published']  ?? '';
+                    $name           = $r['name']            ?? '';
+                    $reviewBody     = $r['review_body']     ?? '';
+                    $rating         = $r['review_rating']   ?? false;
+
+                    $review = [
+                        '@type'         => 'Review',
+                        'author'        => [
+                            '@type' => 'Person',
+                            'name'  => $author,
+                        ],
+                        'datePublished' => $datePublished,
+                        'name'          => $name,
+                        'reviewBody'    => $reviewBody,
+                    ];
+
+                    if ($rating)
                     {
-                        $offer[$key] = [
-                            '@type'             => 'Offer',
-                            'priceCurrency'     => @$offers[$key]['offer_price_currency'],
-                            'price'             => @$offers[$key]['offer_price'],
-                            'validFrom'         => @$offers[$key]['offer_valid_from'],
-                            'priceValidUntil'   => @$offers[$key]['offer_valid_until'],
-                            'availability'      => @$offers[$key]['offer_availability'],
+                        $bestRating     = $r['best_rating']     ?? '';
+                        $ratingValue    = $r['rating_value']    ?? '';
+                        $worstRating    = $r['worst_rating']    ?? '';
+
+                        $review['reviewRating'] = [
+                            '@type'         => 'Rating',
+                            'bestRating'    => $bestRating,
+                            'ratingValue'   => $ratingValue,
+                            'worstRating'   => $worstRating,
                         ];
                     }
+
+                    $product['review'][] = $review;
+                }
+            }
+
+            $microdata[] = $product;
+        }
+
+        if (array_key_exists('article_enabled', $schema)
+            && $schema['article_enabled']
+            && $this->config['plugins']['schema']['article_type'])
+        {
+            $microdata['article'] = [
+                '@context'          => 'http://schema.org',
+                '@type'             => 'Article',
+                'mainEntityOfPage'  => [
+                    "@type" => "WebPage",
+                    'url'   => $this->grav['uri']->base(),
+                ],
+                'articleBody'   =>  @$this->cleanMarkdown($content),
+                'datePublished' => date('c', $page->date()),
+                'dateModified'  => date('c', $page->modified()),
+            ];
+
+            $article = $schema['article'] ?? null;
+
+            if (is_array($article))
+            {
+                if (isset($article['headline']) && $article['headline'])
+                {
+                    $microdata['article']['headline'] =  $article['headline'];
                 }
                 else
                 {
-                    $offer = '';
+                    $microdata['article']['headline'] = $page->title();
                 }
 
-                $product = [
-                    '@context'  => 'http://schema.org',
-                    '@type'     => 'Product',
-                    'name'      => @$header->product['name'],
-                    'category'  => @$header->product['category'],
-                    'brand'     => [
-                        '@type' => 'Thing',
-                        'name'  => @$header->product['brand'],
-                    ],
-                    'offers'        => $offer,
-                    'description'   => @$header->product['description'],
-                    'image'         => @$productImage,
-                ];
-
-                if (isset($header->product['aggregate_rating']))
+                if (isset($article['description']) && $article['description'])
                 {
-                    $product['aggregateRating'] = [
-                        '@type'         => 'AggregateRating',
-                        'ratingValue'   => @$header->product['rating_value'],
-                        'ratingCount'   => @$header->product['rating_count'],
-                        'worstRating'   => @$header->product['worst_rating'],
-                        'bestRating'    => @$header->product['best_rating'],
-                    ];
-                }
-
-                if (isset($header->product['reviews']))
-                {
-                    $product['review'] = [];
-
-                    foreach ($header->product['reviews'] as $r)
-                    {
-                        $review = [
-                            '@type'         => 'Review',
-                            'author'        => [
-                                '@type' => 'Person',
-                                'name'  => @$r['author'],
-                            ],
-                            'datePublished' => @$r['date_published'],
-                            'name'          => @$r['name'],
-                            'reviewBody'    => @$r['review_body'],
-                        ];
-
-                        if (@$r['review_rating'])
-                        {
-                            $review['reviewRating'] = [
-                                '@type'         => 'Rating',
-                                'bestRating'    => @$r['best_rating'],
-                                'ratingValue'   => @$r['rating_value'],
-                                'worstRating'   => @$r['worst_rating'],
-                            ];
-                        }
-
-                        $product['review'][] = $review;
-                    }
-                }
-
-                $microdata[] = $product;
-            }
-        }
-
-        if (property_exists($header, 'article_enabled'))
-        {
-            if (isset($header->article['headline']))
-            {
-               $headline =  $header->article['headline'];
-            }
-            else
-            {
-                $headline = $page->title();
-            }
-
-            if ($header->article_enabled
-                && $this->config['plugins']['schema']['article_type'])
-            {
-                $microdata['article'] = [
-                    '@context'          => 'http://schema.org',
-                    '@type'             => 'Article',
-                    'headline'          => @$headline ,
-                    'mainEntityOfPage'  => [
-                        "@type" => "WebPage",
-                        'url'   => $this->grav['uri']->base(),
-                    ],
-                    'articleBody'   =>  @$this->cleanMarkdown($content),
-                    'datePublished' => @date("c", $page->date()),
-                    'dateModified'  => @date("c", $page->modified()),
-                ];
-
-                if (isset($header->article['description']))
-                {
-                    $microdata['article']['description'] = $header->article['description'];
+                    $microdata['article']['description'] = $article['description'];
                 }
                 else
                 {
                     $microdata['article']['description'] = substr($content, 0, 140);
                 }
 
-                if (isset($header->article['author']))
+                if (isset($article['author']) && $article['author'])
                 {
-                    $microdata['article']['author'] = $header->article['author'];
-                }
- 
-                if (isset($header->article['publisher_name']))
-                {
-                    $microdata['article']['publisher']['@type'] = 'Organization';
-                    $microdata['article']['publisher']['name']  = @$header->article['publisher_name'];
+                    $microdata['article']['author'] = $article['author'];
                 }
 
-                if (isset($header->article['publisher_logo_url']))
-                {
-                    $publisherlogourl = $header->article['publisher_logo_url'];
-                    $imageData = $this->seoGetimage($publisherlogourl);
-                    $microdata['article']['publisher']['logo']['@type']     = 'ImageObject';
-                    $microdata['article']['publisher']['logo']['url']       = $this->grav['uri']->base() . $imageData['url'];
-                    $microdata['article']['publisher']['logo']['width']     = $imageData['width'];
-                    $microdata['article']['publisher']['logo']['height']    = $imageData['height'];
+                $publisherName      = $article['publisher_name']        ?? '';
+                $publisherLogoUrl   = $article['publisher_logo_url']    ?? '';
 
-                }
- 
-                if (isset($header->article['image_url']))
+                if ($publisherName || $publisherLogoUrl)
                 {
-                    $imageUrl = $header->article['image_url'];
+                    $publisher = ['@type' => 'Organization'];
+
+                    if ($publisherName) $publisher['name'] = $article['publisher_name'];
+
+                    if ($publisherLogoUrl)
+                    {
+                        $imageData = $this->seoGetimage($publisherLogoUrl);
+                        $publisher['logo'] = [
+                            '@type'     => 'ImageObject',
+                            'url'       => $this->grav['uri']->base() . $imageData['url'],
+                            'width'     => $imageData['width'],
+                            'height'    => $imageData['height'],
+                        ];
+                    }
+
+                    $microdata['article']['publisher'] = $publisher;
+                }
+
+                $imageUrl = $article['image_url'] ?? '';
+
+                if ($imageUrl)
+                {
                     $imageData = $this->seoGetimage($imageUrl);
                     $microdata['article']['image']['@type']     = 'ImageObject';
                     $microdata['article']['image']['url']       = $this->grav['uri']->base() . $imageData['url'];
@@ -641,8 +890,8 @@ class SchemaPlugin extends Plugin
         $this->grav['twig']->twig_vars['json'] = $outputJson;
         $this->grav['twig']->twig_vars['myvar'] = $outputJson;
 
-       if ($outputJson != "</script><script>")
-       {
+        if ($outputJson != "</script><script>")
+        {
             $assets->addInlineJs($outputJson, 100);
         }
     }
