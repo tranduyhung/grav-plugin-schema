@@ -1,33 +1,26 @@
 PLUGIN_SCHEMA:
-  ARTICLE_IMAGE: "Article Image"
+  IMAGE: "Image"
   DATE_PUBLISHED: "Published Date"
   DATE_MODIFIED: "Modification Date"
-  ARTICLE_DESCRIPTION: "Article Description"
+  DESCRIPTION: "Description"
   HEADLINE: "Headline"
-  ENABLE_ARTICLE_MICRODATA: "Enable Article Microdata"
-  ARTICLE_AUTHOR: "Article Author"
+  AUTHOR: "Author"
   ARTICLE_PLACEHOLDER: "Will use page title if left empty"
   ARTICLE_DESC_PLACEHOLDER: "Will use summary if left empty"
   ARTICLE_PUBLISHER: "Article Publisher"
-  ENABLE_MUSIC_EVENT: "Enable Music Event"
   PUBLISHER_LOGO: "Publisher Logo"
   PUBLISHER_NAME: "Publisher Name"
-  ARTICLE_BODY: "Full Article Body"
-  ADD_MUSIC_EVENT_MICRODATA: "Add Music Event Microdata"
   LOCATION_NAME: "Location Name"
   LOCATION_ADDRESS: "Location Address"
-  MUSIC_EVENT_NAME: "Music Event Name"
-  MUSIC_EVENT_DESCRIPTION: "Description"
-  MUSIC_EVENT_IMAGE: "Event Image"
-  MUSIC_EVENT_URL: "Music Event Url"
-  PREORDER: "Preorder"
-  OUTOFSTOCK: "Out of Stock"
-  PRESALE: "Pre Sale"
-  INSTOCK: "In Stock"
+  URL: "URL"
+  PRE_ORDER: "Preorder"
+  OUT_OF_STOCK: "Out of Stock"
+  PRE_SALE: "Pre Sale"
+  IN_STOCK: "In Stock"
   DISCONTINUED: "Discontinued"
-  INSTOREONLY: "In Store Only"
-  SOLDOUT: "Sold Out"
-  ONLINEONLY: "Online Only"
+  IN_STORE_ONLY: "In Store Only"
+  SOLD_OUT: "Sold Out"
+  ONLINE_ONLY: "Online Only"
   TICKET_URL: "Ticket URL"
   VALID_FROM: "Valid From"
   PRICE: "Price"
@@ -37,65 +30,42 @@ PLUGIN_SCHEMA:
   MUSIC_GROUP: "Music Group"
   PERSON: "Person"
   PERFORMER_NAME: "Performer Name"
-  MUSIC_EVENT_DATE_START: "Start Date"
-  MUSIC_EVENT_DATE_END: "End Date"
-  WORK_PERFORMED: "Works Performed"
+  WORKS_PERFORMED: "Works Performed"
   WORK_PERFORMED_NAME: "Name of work"
-  ADD_PERSON: "Add Person Microdata"
-  PERSON_NAME: "Person Name"
   PERSON_JOB_TITLE: "Job Title"
   PERSON_ADDRESS_LOCALITY: "Address Locality"
   PERSON_ADDRESS_REGION: "Address Region"
-  ADD_EVENT: "Add Event Microdata"
-  EVENT_NAME: "Event Name"
-  ENABLE_EVENT: "Enable Event Microdata"
-  EVENT_START_DATE: "Event Start Date"
-  EVENT_END_DATE: "Event End Date"
-  EVENT_DESCRIPTION: "Event Description"
-  EVENT_LOCATION_NAME: "Event Location Name"
-  EVENT_LOCATION_STREET_ADDRESS: "Event Location Street Address"
-  EVENT_LOCATION_ADDRESS_LOCALITY: "Event Location Address Locality"
-  EVENT_LOCATION_ADDRESS_REGION: "Event Location Region"
-  EVENT_OFFER_PRICE: "Event Offer Price"
-  EVENT_OFFER_CURRENCY: "Event Offer Currency"
-  EVENT_OFFER_URL: "Event Offer Url"
-  ADD_MUSIC_ALBUM: "Add Music Album Microdata"
-  MUSIC_ALBUM_NAME: "Music Album Name"
-  MUSIC_ALBUM_NAME_OF_BAND: "Name of Band"
+  NAME: "Name"
+  START_DATE: "Start Date"
+  END_DATE: "End Date"
+  LOCATION_STREET_ADDRESS: "Location Street Address"
+  LOCATION_ADDRESS_LOCALITY: "Location Address Locality"
+  LOCATION_ADDRESS_REGION: "Location Region"
+  OFFER_PRICE: "Offer Price"
+  OFFER_CURRENCY: "Offer Currency"
+  OFFER_URL: "Offer URL"
+  ARTIST_NAME: "Artist Name"
   MUSIC_ALBUM_IMAGE: "Image"
-  MUSIC_ALBUM_URL: "Album URL"
   MUSIC_ALBUM_GENRE: "Genre"
-  MUSIC_ALBUM_TRACK_NUMBER: "Track Number"
-  MUSIC_ALBUM_ADD_TRACK: "Add Track"
-  MUSIC_ALBUM_TRACK_POSITION: "Track Position"
-  MUSIC_ALBUM_TRACK_NAME: "Track Name"
-  MUSIC_ALBUM_TRACK_URL: "Track URL"
-  MUSIC_ALBUM_TRACK_DURATION: "Track Duration"
-  LOCATION_URL: "Location Url"
-  ADD_RESTAURANT: "Add Restaurant Microdata"
-  RESTAURANT_NAME: "Restaurant Name"
-  RESTAURANT_ACCEPT_RESERVATION: "Accept Reservation"
-  RESTAURANT_MENU_URL: "Menu URL"
-  RESTAURANT_IMAGE: "Image"
-  RESTAURANT_CUISINE: "Cuisine"
-  RESTAURANT_PRICE_RANGE: "Price Range"
-  RESTAURANT_POSTAL_CODE: "Postal Code"
+  TRACK_NUMBER: "Track Number"
+  TRACKS: "Tracks"
+  POSITION: "Position"
+  DURATION: "Duration"
+  LOCATION_URL: "Location URL"
+  ACCEPT_RESERVATION: "Accept Reservation"
+  MENU_URL: "Menu URL"
+  CUISINE: "Cuisine"
+  PRICE_RANGE: "Price Range"
+  POSTAL_CODE: "Postal Code"
   STREET: "Street"
   RESTAURANT_LOCALITY: "Locality"
-  LOCATION_URL_PLACEHOLDER: "Url to the venue website"
+  LOCATION_URL_PLACEHOLDER: "Venue Website"
   RESTAURANT_REGION: "Region"
   RESTAURANT_TELEPHONE: "Telephone"
-  ENABLE_PERSON: "Enable Person Microdata"
-  ENABLEORGA: "Enable Organization Microdata"
-  MUSIC_EVENT_URL_PLACEHOLDER: "Url to the official page of this music event"
-  ARTICLE_MICRODATA: Article Microdata
-  ADD_MUSIC_EVENT: Add Music Event
+  ARTICLE: Article
   SAME_AS: Same As
   ADD_A_WORK: Add A Work
-  ORGANIZATION_MICRODATA: Article Microdata
-  ENABLE_ORGANIZATION_MICRODATA: Enable Organization Microdata
-  ORGANIZATION_NAME: Organization Name
-  ORGANIZATION_DESC: Organization Description
+  ORGANIZATION: Organization
   LEGAL_NAME: Legal name
   TAX_ID: Tax / Fiscal ID
   VAT_ID: Value-added Tax ID
@@ -103,12 +73,12 @@ PLUGIN_SCHEMA:
   STATE: State
   ZIP_CODE: Zip Code
   AREA_SERVERED: Area Servered
-  ADD_A_LOCATION: Add a location
+  ADD_A_LOCATION: Add A Location
   AREA_SERVERED_AREA: The geographic area where service/offered item is provided.
   AREA_SERVERED_AREA_PLACEHOLDER: One location per line
-  ORGANIZATION_PHONE: Organization Phone
-  ORGANIZATION_WEBSITE: Organization Website URL
-  ORGANIZATION_LOGO: Organization Logo URL
+  PHONE: Phone
+  WEBSITE: Website
+  LOGO_URL: Logo URL
   INCLUDE_HTTPS: Include https://
   ENABLE_ORGANIZATION_RATING: Enable Organization Rating
   STAR_RATING: Star Rating
@@ -118,7 +88,7 @@ PLUGIN_SCHEMA:
   OPENING_HOURS_INSTRUCTION: Write two character day or a range of day (mo-fr) followed by a space and opening hours
   OPENING_HOURS_PLACEHOLDER: "Exemple: Mo-Fr 09:00-18:00 or Saturday 09:00-15:00"
   FOUNDING_DATE: Date When Organization Was Founded
-  ORGANIZATION_EMAIL: Organization Email
+  EMAIL: Email
   FOUNDERS: Founders
   ADD_A_FOUNDER: Add A Founder
   FOUNDER_NAME: Founder name
@@ -131,29 +101,20 @@ PLUGIN_SCHEMA:
   ORGANIZATION_OFFER_IMAGE_URL: Product/Service Image URL
   ORGANIZATION_OFFER_ITEM: Offer Item
   ADD_AN_OFFER_ITEM: Add An Offer Item
-  EVENT_MICRODATA: Event Microdata
-  ADD_AN_EVENT: Add An Event
-  PERSON_MICRODATA: Person Microdata
-  ADD_A_PERSON: Add A Person
-  MUSIC_ALBUM_MICRODATA: Music Album Microdata
-  ADD_A_MUSIC_ALBUM: Add A Music Album
-  PRODUCT_MICRODATA: Product Microdata
-  ADD_PRODUCT_ALBUM: Add Product Microdata
-  PRODUCT_NAME: Product Name
-  PRODUCT_CATEGORY: Product Category
-  PRODUCT_BRAND: Product Brand
-  PRODUCT_LOGO: Product Logo
-  PRODUCT_IMAGE: Product Image
+  EVENT: Event
+  MUSIC_ALBUM: Music Album
+  PRODUCT: Product
+  CATEGORY: Category
+  BRAND: Brand
+  LOGO: Logo
   ADD_AN_IMAGE: Add An Image
   CHOOSE_AN_IMAGE: Choose an image
-  PRODUCT_DESCRIPTION: Product Description
-  PRODUCT_OFFERS: Product Offers
+  OFFERS: Offers
   AVAILABILITY: Availability
   PRODUCT_PRICE_PLACEHOLDER: "e.g: 19.99 (no currency symbol)"
   PRODUCT_OFFER_VALID_FROM: Offer Valid From
   PRODUCT_OFFER_VALID_UNTIL: Offer Valid Until
-  RESTAURANT_MICRODATA: Restaurant Microdata
-  ADD_RESTAURANT_ALBUM: Add Restaurant Microdata
+  RESTAURANT: Restaurant
   VALIDATE_BUTTON: Validate This Page Microdata
   ENABLE_AGGREGATE_RATING: Enable Aggregate Rating
   RATING_COUNT: Rating Count
@@ -164,7 +125,9 @@ PLUGIN_SCHEMA:
   WORST_RATING_HELP: If omitted, 5 is assumed.
   REVIEWS: Reviews
   ADD_A_REVIEW: Add A Review
-  AUTHOR: Author
   REVIEW_NAME: Title
   REVIEW_BODY: Review
   ENABLE_REVIEW_RATING: Has Rating
+  MUSIC_EVENT: Music Event
+  SCHEMA_TYPE: Schema Type
+  SCHEMA: Schema

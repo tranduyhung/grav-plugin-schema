@@ -1,34 +1,59 @@
-function schemaToggleProductAggregateRating() {
-    var toggle = $('input[name="data[header][product][aggregate_rating]"]:checked').val();
+var productReviewSelector = 'input[type="radio"][name^="data[header][product][reviews]"]';
+var productRatingSelector = 'input[name="data[header][product][aggregate_rating]"]';
+var schemaTypeSelector = 'input[name="data[header][schema][type]"]';
+
+function toggleSchemeType() {
+    var schemaType = $(schemaTypeSelector + ':checked').val();
+
+    if (schemaType == '') return;
+
+    var els = $('.microdata-fieldset');
+
+    for (var i = 0; i < els.length; i++) {
+        var el = $(els[i]);
+
+        if (el.hasClass(schemaType + 'Microdata')) {
+            el.show();
+        } else {
+            el.hide();
+        }
+    }
+}
+
+function toggleProductAggregateRating() {
+    var toggle = $(productRatingSelector + ':checked').val();
 
     $('.product-aggregate-rating-toggle').toggle((toggle == 1));
 }
 
-function schemaToggleProductReviewRating(el) {
+function toggleProductReviewRating(el) {
     var toggle = el.val();
 
     el.closest('.form-field').siblings('.review-toggle').toggle((toggle == 1));
 }
 
 $(document).ready(function() {
-    schemaToggleProductAggregateRating();
+    toggleSchemeType();
+    toggleProductAggregateRating();
 
-    var productReviewToggles = $('input[type="radio"][name^="data[header][product][reviews]"]:checked');
+    var productReviewToggles = $(productReviewSelector + ':checked');
 
     if (productReviewToggles.length > 0) {
         for (var i = 0; i < productReviewToggles.length; i++) {
             var el = productReviewToggles[i];
-            console.log(el);
-            schemaToggleProductReviewRating($(el));
+            toggleProductReviewRating($(el));
         }
     }
 
-    $('input[name="data[header][product][aggregate_rating]"]').on('change', function() {
-        schemaToggleProductAggregateRating();
+    $(schemaTypeSelector).on('change', function() {
+        toggleSchemeType();
     });
 
-    $('body').on('change', 'input[type="radio"][name^="data[header][product][reviews]"]', function(e) {
-        schemaToggleProductReviewRating($(e.currentTarget));
+    $(productRatingSelector).on('change', function() {
+        toggleProductAggregateRating();
     });
 
+    $('body').on('change', productReviewSelector, function(e) {
+        toggleProductReviewRating($(e.currentTarget));
+    });
 });

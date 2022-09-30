@@ -1,0 +1,25 @@
+{
+    "name": "tranduyhung/grav-plugin-schema",
+    "description": "Add schema.org structured data to Grav. This is a fork of paulmassen/grav-plugin-seo.",
+    "type": "grav-plugin",
+    "keywords": ["seo", "meta", "microdata", "schema", "plugin"],
+    "homepage": "https://github.com/tranduyhung/grav-plugin-schema",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hung Tran",
+            "email": "flatfiledeveloper@gmail.com",
+            "homepage": "https://flatfiledeveloper.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/tranduyhung/grav-plugin-schema/issues",
+        "docs": "https://github.com/tranduyhung/grav-plugin-schema/blob/master/README.md"
+    },
+    "autoload": {
+        "psr-4": {
+            "Grav\\Plugin\\Schema\\":"classes/"
+        }
+    }
+}

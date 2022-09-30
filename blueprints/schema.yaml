@@ -6,643 +6,543 @@ form:
       fields:
         schema:
           type: tab
-          title: schema.org
+          title: PLUGIN_SCHEMA.SCHEMA
           fields:
             header.validate_page:
               type: schemavalidation
-            header.article_condition:
-              type: conditional
-              condition: "config.plugins.schema.article_type ? 'true' : 'false'"
+            header.schema.type:
+              label: PLUGIN_SCHEMA.SCHEMA_TYPE
+              type: radio
+              default: 'Article'
+              options:
+                'Article': PLUGIN_SCHEMA.ARTICLE
+                'Product': PLUGIN_SCHEMA.PRODUCT
+                'Event': PLUGIN_SCHEMA.EVENT
+                'MusicEvent': PLUGIN_SCHEMA.MUSIC_EVENT
+                'MusicAlbum': PLUGIN_SCHEMA.MUSIC_ALBUM
+                'Person': PLUGIN_SCHEMA.PERSON
+                'Organization': PLUGIN_SCHEMA.ORGANIZATION
+                'Restaurant': PLUGIN_SCHEMA.RESTAURANT
+            header.article_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.ARTICLE
+              classes: microdata-fieldset ArticleMicrodata
+              field_classes: microdata-fieldset ArticleMicrodata
               fields:
-                header.article_fieldset:
-                  type: fieldset
-                  icon: newspaper-o
-                  title: PLUGIN_SCHEMA.ARTICLE_MICRODATA
-                  collapsed: true
-                  collapsible: true
-                  fields:
-                    header.schema.article_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_ARTICLE_MICRODATA
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.article.headline:
-                      type: text
-                      label: PLUGIN_SCHEMA.HEADLINE
-                      placeholder: PLUGIN_SCHEMA.ARTICLE_PLACEHOLDER
-                    header.schema.article.datePublished:
-                      type: datetime
-                      label: PLUGIN_SCHEMA.DATE_PUBLISHED
-                    header.schema.article.dateModified:
-                      type: datetime
-                      label: PLUGIN_SCHEMA.DATE_MODIFIED
-                    header.schema.article.description:
-                      type: textarea
-                      rows: 5
-                      label: PLUGIN_SCHEMA.ARTICLE_DESCRIPTION
-                      placeholder: PLUGIN_SCHEMA.ARTICLE_DESC_PLACEHOLDER
-                      field_classes: toggle-article
-                    header.schema.article.image_url:
-                      type: mediapicker
-                      label: PLUGIN_SCHEMA.ARTICLE_IMAGE
-                      field_classes: toggle-article
-                    header.schema.article.author:
-                      type: text
-                      label: PLUGIN_SCHEMA.ARTICLE_AUTHOR
-                      field_classes: toggle-article
-                    header.schema.article.publisher_logo_url:
-                      type: mediapicker
-                      label: PLUGIN_SCHEMA.PUBLISHER_LOGO
-                      disabled: false
-                      field_classes: toggle-article
-                    header.schema.article.publisher_name:
-                      type: text
-                      label: PLUGIN_SCHEMA.PUBLISHER_NAME
-                      field_classes: toggle-article
-            header.music_event_condition:
-              type: conditional
-              condition: "config.plugins.schema.music_event_type ? 'true' : 'false'"
+                header.schema.article.headline:
+                  type: text
+                  label: PLUGIN_SCHEMA.HEADLINE
+                  placeholder: PLUGIN_SCHEMA.ARTICLE_PLACEHOLDER
+                header.schema.article.datePublished:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.DATE_PUBLISHED
+                header.schema.article.dateModified:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.DATE_MODIFIED
+                header.schema.article.description:
+                  type: textarea
+                  rows: 5
+                  label: PLUGIN_SCHEMA.DESCRIPTION
+                  placeholder: PLUGIN_SCHEMA.ARTICLE_DESC_PLACEHOLDER
+                header.schema.article.image_url:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.IMAGE
+                header.schema.article.author:
+                  type: text
+                  label: PLUGIN_SCHEMA.AUTHOR
+                header.schema.article.publisher_logo_url:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.PUBLISHER_LOGO
+                  disabled: false
+                header.schema.article.publisher_name:
+                  type: text
+                  label: PLUGIN_SCHEMA.PUBLISHER_NAME
+
+            header.music_event_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.MUSIC_EVENT
+              classes: microdata-fieldset MusicEventMicrodata
+              field_classes: microdata-fieldset MusicEventMicrodata
               fields:
-                header.music_event_fieldset:
-                  type: fieldset
-                  title: Music Event
-                  icon: music
-                  collapsed: true
-                  collapsible: true
+                header.schema.music_event.location_name:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_NAME
+                  placeholder: Chicago Symphony Center
+                header.schema.music_event.location_address:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_ADDRESS
+                  placeholder: 220 S. Michigan Ave, Chicago, Illinois, USA
+                header.schema.music_event.location_url:
+                  type: text
+                  placeholder: PLUGIN_SCHEMA.LOCATION_URL_PLACEHOLDER
+                  label: PLUGIN_SCHEMA.LOCATION_URL
+                header.schema.music_event.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.music_event.image:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.IMAGE
+                header.schema.music_event.description:
+                  type: textarea
+                  rows: 5
+                  label: PLUGIN_SCHEMA.DESCRIPTION
+                header.schema.music_event.url:
+                  type: text
+                  label: PLUGIN_SCHEMA.URL
+                header.schema.music_event.offers_availability:
+                  type: select
+                  options:
+                    'http://schema.org/PreOrder': PLUGIN_SCHEMA.PRE_ORDER
+                    'http://schema.org/OutOfStock': PLUGIN_SCHEMA.OUT_OF_STOCK
+                    'http://schema.org/PreSale': PLUGIN_SCHEMA.PRE_SALE
+                    'http://schema.org/InStock': PLUGIN_SCHEMA.IN_STOCK
+                    'http://schema.org/Discontinued': PLUGIN_SCHEMA.DISCONTINUED
+                    'http://schema.org/InStoreOnly': PLUGIN_SCHEMA.IN_STORE_ONLY
+                    'http://schema.org/SoldOut': PLUGIN_SCHEMA.SOLD_OUT
+                    'http://schema.org/OnlineOnly': PLUGIN_SCHEMA.ONLINE_ONLY
+                header.schema.music_event.offers_url:
+                  type: text
+                  label: PLUGIN_SCHEMA.TICKET_URL
+                header.schema.music_event.offers_valid_from:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.VALID_FROM
+                header.schema.music_event.offers_price:
+                  type: text
+                  label: PLUGIN_SCHEMA.PRICE
+                header.schema.music_event.offers_price_currency:
+                  type: text
+                  label: PLUGIN_SCHEMA.PRICE_CURRENCY
+                  placeholder: USD
+                header.schema.music_event.performers:
+                  type: list
+                  label: PLUGIN_SCHEMA.ADD_PERFORMER
+                  btnLabel: Add a performer
                   fields:
-                    header.schema.music_event_enabled:
-                      type: toggle
-                      label: PLUGIN_SCHEMA.ENABLE_MUSIC_EVENT
-                      highlight: 1
-                      default: 0
+                    .performer_type:
+                      type: select
+                      label: PLUGIN_SCHEMA.PERFORMER_TYPE
                       options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.music_events:
-                      type: list
-                      label: PLUGIN_SCHEMA.ADD_MUSIC_EVENT_MICRODATA
+                        MusicGroup: PLUGIN_SCHEMA.MUSIC_GROUP
+                        Person: PLUGIN_SCHEMA.PERSON
+                    .name:
+                      type: text
+                      label: PLUGIN_SCHEMA.PERFORMER_NAME
+                    .sameAs:
+                      type: text
+                      label: PLUGIN_SCHEMA.SAME_AS
+                      placeholder: 'http://en.wikipedia.org/wiki/Artist_Page'
+                header.schema.start_date:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.START_DATE
+                header.schema.end_date:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.END_DATE
+                header.schema.works_performed:
+                  type: list
+                  label: PLUGIN_SCHEMA.WORKS_PERFORMED
+                  btnLabel: PLUGIN_SCHEMA.ADD_A_WORK
+                  fields:
+                    .name:
+                      type: text
+                      label: PLUGIN_SCHEMA.WORK_PERFORMED_NAME
+                    .sameAs:
+                      type: text
+                      label: Wikipedia or official URL
+
+            header.organization_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.ORGANIZATION
+              classes: microdata-fieldset OrganizationMicrodata
+              field_classes: microdata-fieldset OrganizationMicrodata
+              fields:
+                header.schema.organization.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.organization.description:
+                  type: text
+                  label: PLUGIN_SCHEMA.DESCRIPTION
+                header.schema.organization.legal_name:
+                  type: text
+                  label: PLUGIN_SCHEMA.LEGAL_NAME
+                header.schema.organization.tax_id:
+                  type: text
+                  label: PLUGIN_SCHEMA.TAX_ID
+                header.schema.organization.vat_id:
+                  type: text
+                  label: PLUGIN_SCHEMA.VAT_ID
+                header.schema.organization.street_address:
+                  type: text
+                  label: PLUGIN_SCHEMA.STREET
+                header.schema.organization.city:
+                  type: text
+                  label: PLUGIN_SCHEMA.CITY
+                header.schema.organization.state:
+                  type: text
+                  label: PLUGIN_SCHEMA.STATE
+                header.schema.organization.zip_code:
+                  type: text
+                  label: PLUGIN_SCHEMA.ZIP_CODE
+                header.schema.organization.area_served:
+                  type: list
+                  label: PLUGIN_SCHEMA.AREA_SERVERED
+                  btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
+                  fields:
+                    .area:
+                      type: text
                       style: vertical
-                      controls: both
-                      btnLabel: PLUGIN_SCHEMA.ADD_MUSIC_EVENT
-                      fields:
-                        .music_event_location_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.LOCATION_NAME
-                          field_classes: toggle-music-event
-                          placeholder: Chicago Symphony Center
-                        .music_event_location_address:
-                          type: text
-                          label: PLUGIN_SCHEMA.LOCATION_ADDRESS
-                          field_classes: toggle-music-event
-                          placeholder: 220 S. Michigan Ave, Chicago, Illinois, USA
-                        .music_event_location_url:
-                          type: text
-                          placeholder: PLUGIN_SCHEMA.LOCATION_URL_PLACEHOLDER
-                          label: PLUGIN_SCHEMA.LOCATION_URL
-                        .music_event_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_NAME
-                          field_classes: toggle-music-event
-                        .music_event_image:
-                          type: mediapicker
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_IMAGE
-                          field_classes: toggle-music-event
-                        .music_event_description:
-                          type: textarea
-                          rows: 5
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_DESCRIPTION
-                          field_classes: toggle-music-event
-                        .music_event_url:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_URL
-                          placeholder: PLUGIN_SCHEMA.MUSIC_EVENT_URL_PLACEHOLDER
-                        .music_event_offers_availability:
-                          type: select
-                          options:
-                            'http://schema.org/PreOrder': PLUGIN_SCHEMA.PREORDER
-                            'http://schema.org/OutOfStock': PLUGIN_SCHEMA.OUTOFSTOCK
-                            'http://schema.org/PreSale': PLUGIN_SCHEMA.PRESALE
-                            'http://schema.org/InStock': PLUGIN_SCHEMA.INSTOCK
-                            'http://schema.org/Discontinued': PLUGIN_SCHEMA.DISCONTINUED
-                            'http://schema.org/InStoreOnly': PLUGIN_SCHEMA.INSTOREONLY
-                            'http://schema.org/SoldOut': PLUGIN_SCHEMA.SOLDOUT
-                            'http://schema.org/OnlineOnly': PLUGIN_SCHEMA.ONLINEONLY
-                          field_classes: toggle-music-event
-
-                        .music_event_offers_url:
-                          type: text
-                          label: PLUGIN_SCHEMA.TICKET_URL
-                          field_classes: toggle-music-event
-                        .music_event_offers_valid_from:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.VALID_FROM
-                        .music_event_offers_price:
-                          type: text
-                          label: PLUGIN_SCHEMA.PRICE
-                          field_classes: toggle-music-event
-                        .music_event_offers_price_currency:
-                          type: text
-                          label: PLUGIN_SCHEMA.PRICE_CURRENCY
-                          field_classes: toggle-music-event
-                          placeholder: USD
-
-                        .music_event_performers:
-                          type: list
-                          label: PLUGIN_SCHEMA.ADD_PERFORMER
-                          field_classes: toggle-music-event
-                          btnLabel: Add a performer
-                          fields:
-                            .performer_type:
-                              type: select
-                              label: PLUGIN_SCHEMA.PERFORMER_TYPE
-                              options:
-                                MusicGroup: PLUGIN_SCHEMA.MUSIC_GROUP
-                                Person: PLUGIN_SCHEMA.PERSON
-                              field_classes: toggle-music-event
-                            .name:
-                              type: text
-                              label: PLUGIN_SCHEMA.PERFORMER_NAME
-                            .sameAs:
-                              type: text
-                              label: PLUGIN_SCHEMA.SAME_AS
-                              placeholder: 'http://en.wikipedia.org/wiki/Artist_Page'
-                        .music_event_start_date:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_DATE_START
-                          field_classes: toggle-music-event
-                        .music_event_end_date:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.MUSIC_EVENT_DATE_END
-                          field_classes: toggle-music-event
-                        .music_event_work_performed:
-                          type: list
-                          label: PLUGIN_SCHEMA.WORK_PERFORMED
-                          btnLabel: PLUGIN_SCHEMA.ADD_A_WORK
-                          field_classes: toggle-music-event
-                          fields:
-                            .name:
-                              type: text
-                              label: PLUGIN_SCHEMA.WORK_PERFORMED_NAME
-                            .sameAs:
-                              type: text
-                              label: Wikipedia or official URL
-                              field_classes: toggle-music-event
-
-            header.organization_conditional:
-              type: conditional
-              condition: "config.plugins.schema.organization_type ? 'true' : 'false'"
-              fields:
-                header.organization_fieldset:
-                  type: fieldset
-                  icon: building
-                  title: PLUGIN_SCHEMA.ORGANIZATION_MICRODATA
-                  collapsed: true
-                  collapsible: true
+                      label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
+                      placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER
+                header.schema.organization.phone:
+                  type: text
+                  label: PLUGIN_SCHEMA.PHONE
+                header.schema.organization.url:
+                  type: text
+                  label: PLUGIN_SCHEMA.WEBSITE
+                  placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
+                header.schema.organization.logo:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOGO_URL
+                  placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
+                header.schema.organization.rating_enabled:
+                  type: toggle
+                  highlight: 1
+                  label: PLUGIN_SCHEMA.ENABLE_ORGANIZATION_RATING
+                  default: 0
+                  options:
+                    1: PLUGIN_ADMIN.YES
+                    0: PLUGIN_ADMIN.NO
+                  validate:
+                    type: bool
+                header.schema.organization.rating_value:
+                  type: range
+                  label: PLUGIN_SCHEMA.STAR_RATING
+                  validate:
+                    min: 0
+                    max: 5
+                    step: 0.1
+                header.schema.organization.review_count:
+                  type: number
+                  label: PLUGIN_SCHEMA.REVIEW_COUNT
+                  size: small
+                header.schema.organization.opening_hours:
+                  type: list
+                  label: PLUGIN_SCHEMA.OPENING_HOURS
+                  btnLabel: PLUGIN_SCHEMA.ADD_OPENING_HOURS
                   fields:
-                    header.schema.organization_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_ORGANIZATION_MICRODATA
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.organization.name:
+                    .entry:
                       type: text
-                      label: PLUGIN_SCHEMA.ORGANIZATION_NAME
-                    header.schema.organization.description:
+                      style: vertical
+                      label: PLUGIN_SCHEMA.OPENING_HOURS_INSTRUCTION
+                      placeholder: PLUGIN_SCHEMA.OPENING_HOURS_PLACEHOLDER
+                header.schema.organization.founding_date:
+                  type: text
+                  label: PLUGIN_SCHEMA.FOUNDING_DATE
+                header.schema.organization.email:
+                  type: email
+                  label: PLUGIN_SCHEMA.EMAIL
+                header.schema.organization.founders:
+                  type: list
+                  label: PLUGIN_SCHEMA.FOUNDERS
+                  btnLabel: PLUGIN_SCHEMA.ADD_A_FOUNDER
+                  fields:
+                    .name:
                       type: text
-                      label: PLUGIN_SCHEMA.ORGANIZATION_DESC
-                    header.schema.organization.legal_name:
+                      label: PLUGIN_SCHEMA.FOUNDER_NAME
+                header.schema.organization.similars:
+                  type: list
+                  label: PLUGIN_SCHEMA.SAME_AS
+                  fields:
+                    .same_as:
                       type: text
-                      label: PLUGIN_SCHEMA.LEGAL_NAME
-                    header.schema.organization.tax_id:
+                      style: vertical
+                      label: PLUGIN_SCHEMA.ORGANIZATION_SAME_AS
+                      placeholder: "http://wikipedia.org/en/companyname"
+                header.schema.organization.offer_catalog:
+                  type: list
+                  label: PLUGIN_SCHEMA.OFFER_CATALOG
+                  btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
+                  fields:
+                    .offer:
                       type: text
-                      label: PLUGIN_SCHEMA.TAX_ID
-                    header.schema.organization.vat_id:
+                      style: vertical
+                      label: PLUGIN_SCHEMA.ORGANIZATION_OFFER
+                    .description:
                       type: text
-                      label: PLUGIN_SCHEMA.VAT_ID
-                    header.schema.organization.street_address:
+                      style: vertical
+                      label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_DESC
+                    .url:
                       type: text
-                      label: PLUGIN_SCHEMA.STREET
-                    header.schema.organization.city:
+                      style: vertical
+                      label: Offer url
+                      placeholder: PLUGIN_SCHEMA.ORGANIZATION_OFFER_URL
+                    .image:
                       type: text
-                      label: PLUGIN_SCHEMA.CITY
-                    header.schema.organization.state:
-                      type: text
-                      label: PLUGIN_SCHEMA.STATE
-                    header.schema.organization.zip_code:
-                      type: text
-                      label: PLUGIN_SCHEMA.ZIP_CODE
-                    header.schema.organization.area_served:
+                      style: vertical
+                      label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_IMAGE_URL
+                    .offered_item:
                       type: list
-                      label: PLUGIN_SCHEMA.AREA_SERVERED
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
-                      fields:
-                        .area:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
-                          placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER
-                    header.schema.organization.phone:
-                      type: text
-                      label: PLUGIN_SCHEMA.ORGANIZATION_PHONE
-                    header.schema.organization.url:
-                      type: text
-                      label: PLUGIN_SCHEMA.ORGANIZATION_WEBSITE
-                      placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
-                    header.schema.organization.logo:
-                      type: text
-                      label: PLUGIN_SCHEMA.ORGANIZATION_LOGO
-                      placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
-                    header.schema.organization_rating_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_ORGANIZATION_RATING
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.organization.rating_value:
-                      type: range
-                      label: PLUGIN_SCHEMA.STAR_RATING
-                      validate:
-                        min: 0
-                        max: 5
-                        step: 0.1
-                    header.schema.organization.review_count:
-                      type: number
-                      label: PLUGIN_SCHEMA.REVIEW_COUNT
-                      size: small
-                    header.schema.organization.opening_hours:
-                      type: list
-                      label: PLUGIN_SCHEMA.OPENING_HOURS
-                      btnLabel: PLUGIN_SCHEMA.ADD_OPENING_HOURS
-                      fields:
-                        .entry:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.OPENING_HOURS_INSTRUCTION
-                          placeholder: PLUGIN_SCHEMA.OPENING_HOURS_PLACEHOLDER
-
-                    header.schema.organization.founding_date:
-                      type: text
-                      label: PLUGIN_SCHEMA.FOUNDING_DATE
-                    header.schema.organization.email:
-                      type: email
-                      label: PLUGIN_SCHEMA.ORGANIZATION_EMAIL
-
-                    header.schema.organization.founders:
-                      type: list
-                      label: PLUGIN_SCHEMA.FOUNDERS
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_FOUNDER
+                      label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_ITEM
+                      btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER_ITEM
                       fields:
                         .name:
                           type: text
-                          label: PLUGIN_SCHEMA.FOUNDER_NAME
-                    header.schema.organization.similars:
-                      type: list
-                      label: PLUGIN_SCHEMA.SAME_AS
-                      fields:
-                        .same_as:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.ORGANIZATION_SAME_AS
-                          placeholder: "http://wikipedia.org/en/companyname"
-                    header.schema.organization.offer_catalog:
-                      type: list
-                      label: PLUGIN_SCHEMA.OFFER_CATALOG
-                      btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
-                      fields:
-                        .offer:
-                          type: text
                           style: vertical
                           label: PLUGIN_SCHEMA.ORGANIZATION_OFFER
-                        .description:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_DESC
                         .url:
                           type: text
                           style: vertical
-                          label: Offer url
-                          placeholder: PLUGIN_SCHEMA.ORGANIZATION_OFFER_URL
-                        .image:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_IMAGE_URL
-                        .offered_item:
-                          type: list
-                          label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_ITEM
-                          btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER_ITEM
-                          fields:
-                            .name:
-                              type: text
-                              style: vertical
-                              label: PLUGIN_SCHEMA.ORGANIZATION_OFFER
-                            .url:
-                              type: text
-                              style: vertical
-                              label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_URL
+                          label: PLUGIN_SCHEMA.ORGANIZATION_OFFER_URL
 
-            header.conditional_event:
-              type: conditional
-              condition: "config.plugins.schema.event_type ? 'true' : 'false'"
+            header.event_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.EVENT
+              classes: microdata-fieldset EventMicrodata
+              field_classes: microdata-fieldset EventMicrodata
               fields:
-                
-                header.event_fieldset:
-                  type: fieldset
-                  title: PLUGIN_SCHEMA.EVENT_MICRODATA
-                  icon: calendar
-                  collapsed: true
-                  collapsible: true
-                  fields:
-                    header.schema.event_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_EVENT
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.events:
-                      type: list
-                      style: vertical
-                      btnLabel: PLUGIN_SCHEMA.ADD_AN_EVENT
-                      controls: both
-                      label: PLUGIN_SCHEMA.ADD_EVENT
-                      fields:
-                        .event_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_NAME
-                          field_classes: toggle-event
-                        .event_description:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_DESCRIPTION 
-                          field_classes: toggle-event
-                        .event_start_date:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.EVENT_START_DATE
-                          field_classes: toggle-event
-                        .event_end_date:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.EVENT_END_DATE
-                          field_classes: toggle-event
-                        .event_offers_price:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_OFFER_PRICE
-                          field_classes: toggle-event
-                        .event_offers_currency:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_OFFER_CURRENCY
-                          placeholder: USD
-                        .event_offers_url:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_OFFER_URL
-                        .event_location_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_LOCATION_NAME
-                          field_classes: toggle-event
-                        .event_location_address_street_address:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_LOCATION_STREET_ADDRESS
-                          field_classes: toggle-event
-                        .event_location_address_address_locality:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_LOCATION_ADDRESS_LOCALITY
-                          field_classes: toggle-event
-                        .event_locssation_address_address_region:
-                          type: text
-                          label: PLUGIN_SCHEMA.EVENT_LOCATION_ADDRESS_REGION
-                          field_classes: toggle-event
-            header.person_condition:
-              type: conditional
-              condition: "config.plugins.schema.person_type ? 'true' : 'false'"
+                header.schema.event.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.event.description:
+                  type: text
+                  label: PLUGIN_SCHEMA.DESCRIPTION 
+                header.schema.event.start_date:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.START_DATE
+                header.schema.event.end_date:
+                  type: datetime
+                  label: PLUGIN_SCHEMA.END_DATE
+                header.schema.event.offers_price:
+                  type: text
+                  label: PLUGIN_SCHEMA.OFFER_PRICE
+                header.schema.event.offers_currency:
+                  type: text
+                  label: PLUGIN_SCHEMA.OFFER_CURRENCY
+                  placeholder: USD
+                header.schema.event.offers_url:
+                  type: text
+                  label: PLUGIN_SCHEMA.OFFER_URL
+                header.schema.event.location_name:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_NAME
+                header.schema.event.location_address_street_address:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_STREET_ADDRESS
+                header.schema.event.location_address_address_locality:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_ADDRESS_LOCALITY
+                header.schema.event.location_address_address_region:
+                  type: text
+                  label: PLUGIN_SCHEMA.LOCATION_ADDRESS_REGION
+
+            header.person_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.PERSON
+              classes: microdata-fieldset PersonMicrodata
+              field_classes: microdata-fieldset PersonMicrodata
               fields:
-                header.person_fieldset:
-                  type: fieldset
-                  title: PLUGIN_SCHEMA.PERSON_MICRODATA
-                  collapsed: true
-                  icon: address-card-o
-                  collapsible: true
-                  fields:
-                    header.schema.person_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_PERSON
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.persons:
-                      type: list
-                      style: vertical
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_PERSON
-                      controls: both
-                      label: PLUGIN_SCHEMA.ADD_PERSON
-                      fields:
-                        .person_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.PERSON_NAME
-                          field_classes: toggle-person
-                        .person_jobTitle:
-                          type: text
-                          label: PLUGIN_SCHEMA.PERSON_JOB_TITLE
-                          field_classes: toggle-person
-                        .person_address_address_locality:
-                          type: text
-                          label: PLUGIN_SCHEMA.PERSON_ADDRESS_LOCALITY 
-                          field_classes: toggle-person
-                        .person_address_address_region:
-                          type: text
-                          label: PLUGIN_SCHEMA.PERSON_ADDRESS_REGION  
-                          field_classes: toggle-person
-            header.music_album_condition:
-              type: conditional
-              condition: "config.plugins.schema.music_album_type ? 'true' : 'false'"
+                header.schema.person.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.person.job_title:
+                  type: text
+                  label: PLUGIN_SCHEMA.PERSON_JOB_TITLE
+                header.schema.person.address_address_locality:
+                  type: text
+                  label: PLUGIN_SCHEMA.PERSON_ADDRESS_LOCALITY 
+                header.schema.person.address_address_region:
+                  type: text
+                  label: PLUGIN_SCHEMA.PERSON_ADDRESS_REGION  
+
+            header.music_album_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.MUSIC_ALBUM
+              classes: microdata-fieldset MusicAlbumMicrodata
+              field_classes: microdata-fieldset MusicAlbumMicrodata
               fields:
-                header.music_album_fieldset:
-                  type: fieldset
-                  title: PLUGIN_SCHEMA.MUSIC_ALBUM_MICRODATA
-                  icon: headphones
-                  collapsed: true
-                  collapsible: true
+                header.schema.music_album.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.music_album.by_artist_name:
+                  type: text
+                  label: PLUGIN_SCHEMA.ARTIST_NAME
+                header.schema.music_album.image:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.MUSIC_ALBUM_IMAGE
+                header.schema.music_album.url:
+                  type: text
+                  label: PLUGIN_SCHEMA.URL
+                header.schema.music_album.genre:
+                  type: text
+                  label: PLUGIN_SCHEMA.MUSIC_ALBUM_GENRE
+                header.schema.music_album.track_number:
+                  type: text
+                  label: PLUGIN_SCHEMA.TRACK_NUMBER
+                header.schema.music_album.track:
+                  type: list
+                  label: PLUGIN_SCHEMA.TRACKS
+                  default:
                   fields:
-                    header.schema.music_album_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ADD_MUSIC_ALBUM
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.music_albums:
-                      type: list
-                      style: vertical
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_MUSIC_ALBUM
-                      controls: both
-                      label: PLUGIN_SCHEMA.ADD_MUSIC_ALBUM
-                      fields:
-                        .music_album_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_NAME
-                          field_classes: toggle-music-album
-                        .music_album_by_artist_name:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_NAME_OF_BAND
-                          field_classes: toggle-music-album
-                        .music_album_image:
-                          type: mediapicker
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_IMAGE
-                          field_classes: toggle-music-album
-                        .music_album_url:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_URL
-                          field_classes: toggle-music-album
-                        .music_album_genre: 
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_GENRE
-                          field_classes: toggle-music-album
-                        .music_album_track_number:
-                          type: text
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_TRACK_NUMBER
-                          field_classes: toggle-music-album
-                        .music_album_track:
-                          type: list   
-                          field_classes: toggle-music-album
-                          label: PLUGIN_SCHEMA.MUSIC_ALBUM_ADD_TRACK
-                          default:
-                          fields:
-                            .position:
-                              type: text
-                              label: PLUGIN_SCHEMA.MUSIC_ALBUM_TRACK_POSITION
-                            .name:
-                              type: text
-                              label: PLUGIN_SCHEMA.MUSIC_ALBUM_TRACK_NAME
-                            .url:
-                              type: text
-                              label: PLUGIN_SCHEMA.MUSIC_ALBUM_TRACK_URL
-                            .duration:
-                              type: text
-                              label: PLUGIN_SCHEMA.MUSIC_ALBUM_TRACK_DURATION
-            header.product_condition:
-              type: conditional
-              condition: "config.plugins.schema.product_type ? 'true' : 'false'"
-              fields:
-                header.product_fieldset:
-                  type: fieldset
-                  icon: shopping-bag
-                  title: PLUGIN_SCHEMA.PRODUCT_MICRODATA
-                  collapsed: true
-                  collapsible: true
-                  fields:
-                    header.schema.product_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ADD_PRODUCT_ALBUM
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.product.name:
+                    .position:
                       type: text
-                      label: PLUGIN_SCHEMA.PRODUCT_NAME
-                      field_classes: toggle-restaurant
-                    header.schema.product.category:
+                      label: PLUGIN_SCHEMA.POSITION
+                    .name:
                       type: text
-                      label: PLUGIN_SCHEMA.PRODUCT_CATEGORY
-                    header.schema.product.brand:
+                      label: PLUGIN_SCHEMA.NAME
+                    .url:
                       type: text
-                      label: PLUGIN_SCHEMA.PRODUCT_BRAND
-                    header.schema.product.brandlogo:
+                      label: PLUGIN_SCHEMA.URL
+                    .duration:
+                      type: text
+                      label: PLUGIN_SCHEMA.DURATION
+
+            header.product_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.PRODUCT
+              classes: microdata-fieldset ProductMicrodata
+              field_classes: microdata-fieldset ProductMicrodata
+              fields:
+                header.schema.product.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.product.category:
+                  type: text
+                  label: PLUGIN_SCHEMA.CATEGORY
+                header.schema.product.brand:
+                  type: text
+                  label: PLUGIN_SCHEMA.BRAND
+                header.schema.product.brand_logo:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.LOGO
+                header.schema.product.image:
+                  type: list
+                  label: PLUGIN_SCHEMA.IMAGE
+                  style: vertical
+                  btnLabel: PLUGIN_SCHEMA.ADD_AN_IMAGE
+                  fields:
+                    .product_img:
                       type: mediapicker
-                      label: PLUGIN_SCHEMA.PRODUCT_LOGO
-                    header.schema.product.image:
-                      type: list
-                      label: PLUGIN_SCHEMA.PRODUCT_IMAGE
-                      style: vertical
-                      btnLabel: PLUGIN_SCHEMA.ADD_AN_IMAGE
-                      fields:
-                        .product_img:
-                          type: mediapicker
-                          label: PLUGIN_SCHEMA.CHOOSE_AN_IMAGE
-                    header.schema.product.description:
+                      label: PLUGIN_SCHEMA.CHOOSE_AN_IMAGE
+                header.schema.product.description:
+                  type: textarea
+                  rows: 5
+                  label: PLUGIN_SCHEMA.DESCRIPTION
+                header.schema.product.offers:
+                  type: list
+                  label: PLUGIN_SCHEMA.OFFERS
+                  btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
+                  controls: both
+                  style: vertical
+                  fields:
+                    .offer_availability:
+                      type: select
+                      label: PLUGIN_SCHEMA.AVAILABILITY
+                      options:
+                        'http://schema.org/InStock': PLUGIN_SCHEMA.IN_STOCK
+                        'http://schema.org/PreOrder': PLUGIN_SCHEMA.PRE_ORDER
+                        'http://schema.org/OutOfStock': PLUGIN_SCHEMA.OUT_OF_STOCK
+                        'http://schema.org/PreSale': PLUGIN_SCHEMA.PRE_SALE
+                        'http://schema.org/Discontinued': PLUGIN_SCHEMA.DISCONTINUED
+                        'http://schema.org/InStoreOnly': PLUGIN_SCHEMA.IN_STORE_ONLY
+                        'http://schema.org/SoldOut': PLUGIN_SCHEMA.SOLD_OUT
+                        'http://schema.org/OnlineOnly': PLUGIN_SCHEMA.ONLINE_ONLY
+                    .offer_price:
+                      type: text
+                      size: small
+                      label: PLUGIN_SCHEMA.PRICE
+                      placeholder: PLUGIN_SCHEMA.PRODUCT_PRICE_PLACEHOLDER
+                    .offer_valid_from:
+                      type: datetime
+                      label: PLUGIN_SCHEMA.PRODUCT_OFFER_VALID_FROM
+                    .offer_valid_until:
+                      type: datetime
+                      label: PLUGIN_SCHEMA.PRODUCT_OFFER_VALID_UNTIL
+                    .offer_price_currency:
+                      label: PLUGIN_SCHEMA.PRICE_CURRENCY
+                      type: text
+                      placeholder: USD
+                header.schema.product.aggregate_rating:
+                  type: toggle
+                  highlight: 1
+                  label: PLUGIN_SCHEMA.ENABLE_AGGREGATE_RATING
+                  default: 0
+                  options:
+                    1: PLUGIN_ADMIN.YES
+                    0: PLUGIN_ADMIN.NO
+                  validate:
+                    type: bool
+                header.schema.product.rating_count:
+                  type: number
+                  label: PLUGIN_SCHEMA.RATING_COUNT
+                  size: small
+                  validate:
+                    type: number
+                    min: 1
+                  field_classes: product-aggregate-rating-toggle
+                header.schema.product.rating_value:
+                  type: number
+                  label: PLUGIN_SCHEMA.RATING_VALUE
+                  size: small
+                  validate:
+                    type: number
+                    step: 0.5
+                    min: 0
+                  field_classes: product-aggregate-rating-toggle
+                header.schema.product.best_rating:
+                  type: number
+                  label: PLUGIN_SCHEMA.BEST_RATING
+                  size: small
+                  help: PLUGIN_SCHEMA.BEST_RATING_HELP
+                  validate:
+                    type: number
+                    min: 1
+                  field_classes: product-aggregate-rating-toggle
+                header.schema.product.worst_rating:
+                  type: number
+                  label: PLUGIN_SCHEMA.WORST_RATING
+                  size: small
+                  help: PLUGIN_SCHEMA.WORST_RATING_HELP
+                  validate:
+                    type: number
+                    min: 1
+                  field_classes: product-aggregate-rating-toggle
+                header.schema.product.reviews:
+                  type: list
+                  label: PLUGIN_SCHEMA.REVIEWS
+                  btnLabel: PLUGIN_SCHEMA.ADD_A_REVIEW
+                  controls: both
+                  style: vertical
+                  fields:
+                    .author:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR
+                    .date_published:
+                      type: datetime
+                      label: PLUGIN_SCHEMA.DATE_PUBLISHED
+                    .name:
+                      type: text
+                      label: PLUGIN_SCHEMA.REVIEW_NAME
+                    .review_body:
+                      label: PLUGIN_SCHEMA.REVIEW_BODY
                       type: textarea
                       rows: 5
-                      label: PLUGIN_SCHEMA.PRODUCT_DESCRIPTION
-                    header.schema.product.offers:
-                      type: list
-                      label: PLUGIN_SCHEMA.PRODUCT_OFFERS
-                      btnLabel: PLUGIN_SCHEMA.ADD_AN_OFFER
-                      controls: both
-                      style: vertical
-                      fields:
-                        .offer_availability:
-                          type: select
-                          label: PLUGIN_SCHEMA.AVAILABILITY
-                          options:
-                            'http://schema.org/InStock': PLUGIN_SCHEMA.INSTOCK
-                            'http://schema.org/PreOrder': PLUGIN_SCHEMA.PREORDER
-                            'http://schema.org/OutOfStock': PLUGIN_SCHEMA.OUTOFSTOCK
-                            'http://schema.org/PreSale': PLUGIN_SCHEMA.PRESALE
-                            'http://schema.org/Discontinued': PLUGIN_SCHEMA.DISCONTINUED
-                            'http://schema.org/InStoreOnly': PLUGIN_SCHEMA.INSTOREONLY
-                            'http://schema.org/SoldOut': PLUGIN_SCHEMA.SOLDOUT
-                            'http://schema.org/OnlineOnly': PLUGIN_SCHEMA.ONLINEONLY
-                        .offer_price:
-                          type: text
-                          size: small
-                          label: PLUGIN_SCHEMA.PRICE
-                          placeholder: PLUGIN_SCHEMA.PRODUCT_PRICE_PLACEHOLDER
-                        .offer_valid_from:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.PRODUCT_OFFER_VALID_FROM
-                        .offer_valid_until:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.PRODUCT_OFFER_VALID_UNTIL
-                        .offer_price_currency:
-                          label: PLUGIN_SCHEMA.PRICE_CURRENCY
-                          type: text
-                          placeholder: USD
-                    header.schema.product.aggregate_rating:
+                    .review_rating:
                       type: toggle
                       highlight: 1
-                      label: PLUGIN_SCHEMA.ENABLE_AGGREGATE_RATING
+                      label: PLUGIN_SCHEMA.ENABLE_REVIEW_RATING
                       default: 0
                       options:
                         1: PLUGIN_ADMIN.YES
                         0: PLUGIN_ADMIN.NO
                       validate:
                         type: bool
-                      classes: product-aggregate-rating-toggle-input
-                    header.schema.product.rating_count:
-                      type: number
-                      label: PLUGIN_SCHEMA.RATING_COUNT
-                      size: small
-                      validate:
-                        type: number
-                        min: 1
-                      field_classes: product-aggregate-rating-toggle
-                    header.schema.product.rating_value:
+                    .rating_value:
                       type: number
                       label: PLUGIN_SCHEMA.RATING_VALUE
                       size: small
@@ -650,8 +550,8 @@ form:
                         type: number
                         step: 0.5
                         min: 0
-                      field_classes: product-aggregate-rating-toggle
-                    header.schema.product.best_rating:
+                      field_classes: review-toggle
+                    .best_rating:
                       type: number
                       label: PLUGIN_SCHEMA.BEST_RATING
                       size: small
@@ -659,8 +559,8 @@ form:
                       validate:
                         type: number
                         min: 1
-                      field_classes: product-aggregate-rating-toggle
-                    header.schema.product.worst_rating:
+                      field_classes: review-toggle
+                    .worst_rating:
                       type: number
                       label: PLUGIN_SCHEMA.WORST_RATING
                       size: small
@@ -668,146 +568,65 @@ form:
                       validate:
                         type: number
                         min: 1
-                      field_classes: product-aggregate-rating-toggle
-                    header.schema.product.reviews:
-                      type: list
-                      label: PLUGIN_SCHEMA.REVIEWS
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_REVIEW
-                      controls: both
-                      style: vertical
-                      fields:
-                        .author:
-                          type: text
-                          label: PLUGIN_SCHEMA.AUTHOR
-                        .date_published:
-                          type: datetime
-                          label: PLUGIN_SCHEMA.DATE_PUBLISHED
-                        .name:
-                          type: text
-                          label: PLUGIN_SCHEMA.REVIEW_NAME
-                        .review_body:
-                          label: PLUGIN_SCHEMA.REVIEW_BODY
-                          type: textarea
-                          rows: 5
-                        .review_rating:
-                          type: toggle
-                          highlight: 1
-                          label: PLUGIN_SCHEMA.ENABLE_REVIEW_RATING
-                          default: 0
-                          options:
-                            1: PLUGIN_ADMIN.YES
-                            0: PLUGIN_ADMIN.NO
-                          validate:
-                            type: bool
-                          classes: review-toggle-input
-                        .rating_value:
-                          type: number
-                          label: PLUGIN_SCHEMA.RATING_VALUE
-                          size: small
-                          validate:
-                            type: number
-                            step: 0.5
-                            min: 0
-                          field_classes: review-toggle
-                        .best_rating:
-                          type: number
-                          label: PLUGIN_SCHEMA.BEST_RATING
-                          size: small
-                          help: PLUGIN_SCHEMA.BEST_RATING_HELP
-                          validate:
-                            type: number
-                            min: 1
-                          field_classes: review-toggle
-                        .worst_rating:
-                          type: number
-                          label: PLUGIN_SCHEMA.WORST_RATING
-                          size: small
-                          help: PLUGIN_SCHEMA.WORST_RATING_HELP
-                          validate:
-                            type: number
-                            min: 1
-                          field_classes: review-toggle
-            header.restaurant_condition:
-              type: conditional
-              condition: "config.plugins.schema.restaurant_type ? 'true' : 'false'"
+                      field_classes: review-toggle
+
+            header.restaurant_fieldset:
+              type: section
+              underline: true
+              title: PLUGIN_SCHEMA.RESTAURANT
+              classes: microdata-fieldset RestaurantMicrodata
+              field_classes: microdata-fieldset RestaurantMicrodata
               fields:
-                header.restaurant_fieldset:
-                  type: fieldset
-                  icon: cutlery
-                  title: PLUGIN_SCHEMA.RESTAURANT_MICRODATA
-                  collapsed: true
-                  collapsible: true
+                header.schema.restaurant.name:
+                  type: text
+                  label: PLUGIN_SCHEMA.NAME
+                header.schema.restaurant.accept_reservation:
+                  type: toggle
+                  highlight: 'yes'
+                  default: 'no'
+                  label: PLUGIN_SCHEMA.ACCEPT_RESERVATION
+                  options:
+                    'yes': PLUGIN_ADMIN.YES
+                    'no': PLUGIN_ADMIN.NO
+                header.schema.restaurant.menu:
+                  type: text
+                  label: PLUGIN_SCHEMA.MENU_URL
+                header.schema.restaurant.image:
+                  type: mediapicker
+                  label: PLUGIN_SCHEMA.IMAGE
+                header.schema.restaurant.serves_cuisine:
+                  placeholder: seafood
+                  type: text
+                  label: PLUGIN_SCHEMA.CUISINE
+                header.schema.restaurant.price_range:
+                  type: select
+                  label: PLUGIN_SCHEMA.PRICE_RANGE
+                  options:
+                    $: $
+                    $$: $$
+                    $$$: $$$
+                header.schema.restaurant.address_street_address:
+                  type: text
+                  label: PLUGIN_SCHEMA.STREET
+                header.schema.restaurant.address_address_locality:
+                  type: text
+                  label: PLUGIN_SCHEMA.RESTAURANT_LOCALITY
+                header.schema.restaurant.address_address_region:
+                  type: text
+                  label: PLUGIN_SCHEMA.RESTAURANT_REGION
+                header.schema.restaurant.address_postal_code:
+                  type: text
+                  label: PLUGIN_SCHEMA.POSTAL_CODE
+                header.schema.restaurant.telephone:
+                  type: text
+                  label: PLUGIN_SCHEMA.RESTAURANT_TELEPHONE
+                header.schema.restaurant.area_served:
+                  type: list
+                  label: PLUGIN_SCHEMA.AREA_SERVERED
+                  btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
                   fields:
-                    header.schema.restaurant_enabled:
-                      type: toggle
-                      highlight: 1
-                      label: PLUGIN_SCHEMA.ADD_RESTAURANT_ALBUM
-                      default: 0
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                      validate:
-                        type: bool
-                    header.schema.restaurant.name:
+                    .area:
                       type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_NAME
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.accept_reservation:
-                      type: toggle
-                      highlight: 'yes'
-                      default: 'no'
-                      label: PLUGIN_SCHEMA.RESTAURANT_ACCEPT_RESERVATION
-                      options:
-                        'yes': PLUGIN_ADMIN.YES
-                        'no': PLUGIN_ADMIN.NO
-                    header.schema.restaurant.menu:
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_MENU_URL
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.image:
-                      type: mediapicker
-                      label: PLUGIN_SCHEMA.RESTAURANT_IMAGE
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.serves_cuisine:
-                      placeholder: seafood
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_CUISINE
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.price_range:
-                      type: select
-                      label: PLUGIN_SCHEMA.RESTAURANT_PRICE_RANGE
-                      field_classes: toggle-restaurant
-                      options:
-                        $: $
-                        $$: $$
-                        $$$: $$$
-                    header.schema.restaurant.address_street_address:
-                      type: text
-                      label: PLUGIN_SCHEMA.STREET
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.address_address_locality:
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_LOCALITY
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.address_address_region:
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_REGION
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.address_postal_code:
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_POSTAL_CODE
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.telephone:
-                      type: text
-                      label: PLUGIN_SCHEMA.RESTAURANT_TELEPHONE
-                      field_classes: toggle-restaurant
-                    header.schema.restaurant.area_served:
-                      type: list
-                      label: PLUGIN_SCHEMA.AREA_SERVERED
-                      btnLabel: PLUGIN_SCHEMA.ADD_A_LOCATION
-                      fields:
-                        .area:
-                          type: text
-                          style: vertical
-                          label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
-                          placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER
+                      style: vertical
+                      label: PLUGIN_SCHEMA.AREA_SERVERED_AREA
+                      placeholder: PLUGIN_SCHEMA.AREA_SERVERED_AREA_PLACEHOLDER
