@@ -34,8 +34,8 @@ class Product extends Schema
         $baseUrl = $this->grav['uri']->base();
         $data = $this->data;
 
-        $name = $product['name'] ?? '';
-        if ($name) $data['name'] = $name;
+        $name = $product['name'] ?? $page->title();
+        $data['name'] = $name;
 
         $category = $product['category'] ?? '';
         if ($category) $data['category'] = $category;
