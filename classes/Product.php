@@ -100,11 +100,11 @@ class Product extends Schema
         }
 
         $reviews        = $product['reviews']       ?? [];
-        $worstRating    = $product['worst_rating']  ?? 5;
-        $bestRating     = $product['best_rating']   ?? 1;
+        $worstRating    = $product['worst_rating']  ?? 1;
+        $bestRating     = $product['best_rating']   ?? 5;
 
         $hasReviewRating        = false;
-        $aggregateRatingValue   = 0;
+        $aggregateRatingTotal   = 0;
         $aggregateRatingCount   = 0;
 
         if (!empty($reviews))
@@ -175,7 +175,7 @@ class Product extends Schema
                     $aggregateRatingCount++;
                     $ratingValue = isset($r['rating_value']) ? floatval($r['rating_value']) : 0;
 
-                    $aggregateRatingValue += $ratingValue;
+                    $aggregateRatingTotal += $ratingValue;
 
                     $review['reviewRating'] = [
                         '@type'         => 'Rating',
@@ -191,6 +191,9 @@ class Product extends Schema
 
         if ($hasReviewRating)
         {
+            $aggregateRatingValue = $aggregateRatingTotal / $aggregateRatingCount;
+            $aggregateRatingValue = round(2 * $aggregateRatingValue) / 2;
+
             $data['aggregateRating'] = [
                 '@type'         => 'AggregateRating',
                 'ratingValue'   => $aggregateRatingValue,
