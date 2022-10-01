@@ -482,6 +482,7 @@ form:
                 header.schema.product.rating_count:
                   type: number
                   label: PLUGIN_SCHEMA.RATING_COUNT
+                  help: PLUGIN_SCHEMA.PRODUCT_RATING_COUNT_HELP
                   size: small
                   validate:
                     type: number
@@ -490,6 +491,7 @@ form:
                 header.schema.product.rating_value:
                   type: number
                   label: PLUGIN_SCHEMA.RATING_VALUE
+                  help: PLUGIN_SCHEMA.PRODUCT_RATING_VALUE_HELP
                   size: small
                   validate:
                     type: number

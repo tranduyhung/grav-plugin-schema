@@ -100,8 +100,8 @@ class Product extends Schema
         }
 
         $reviews        = $product['reviews']       ?? [];
-        $worstRating    = $product['worst_rating']  ?? '';
-        $bestRating     = $product['best_rating']   ?? '';
+        $worstRating    = $product['worst_rating']  ?? 5;
+        $bestRating     = $product['best_rating']   ?? 1;
 
         $hasReviewRating        = false;
         $aggregateRatingValue   = 0;

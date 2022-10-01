@@ -1,5 +1,5 @@
 var productReviewSelector = 'input[type="radio"][name^="data[header][product][reviews]"]';
-var productRatingSelector = 'input[name="data[header][product][aggregate_rating]"]';
+var productRatingSelector = 'input[name="data[header][schema][product][aggregate_rating]"]';
 var schemaTypeSelector = 'select[name="data[header][schema][type]"]';
 
 function toggleSchemeType() {

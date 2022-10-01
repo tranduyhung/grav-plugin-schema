@@ -122,7 +122,7 @@ PLUGIN_SCHEMA:
   BEST_RATING: Highest Rating Value Allowed
   BEST_RATING_HELP: If omitted, 5 is assumed.
   WORST_RATING: Lowest Rating Value Allowed
-  WORST_RATING_HELP: If omitted, 5 is assumed.
+  WORST_RATING_HELP: If omitted, 1 is assumed.
   REVIEWS: Reviews
   ADD_A_REVIEW: Add A Review
   REVIEW_NAME: Title
@@ -143,4 +143,6 @@ PLUGIN_SCHEMA:
   AUTHOR_ORGANIZATION_URL: Author's Organization URL
   PRODUCT_AGGREGATE_RATING_HELP: Aggregate rating is enabled and calculated automatically if reviews are provided.
   PRODUCT_BEST_RATING_HELP: If omitted, 5 is assumed. This value is required if you provide reviews with rating.
-  PRODUCT_WORST_RATING_HELP: If omitted, 5 is assumed. This value is required if you provide reviews with rating.
+  PRODUCT_WORST_RATING_HELP: If omitted, 1 is assumed. This value is required if you provide reviews with rating.
+  PRODUCT_RATING_VALUE_HELP: Rating value is calculated automatically if you provide reviews with rating.
+  PRODUCT_RATING_COUNT_HELP: Rating quantity is counted automatically if you provide reviews with rating.
