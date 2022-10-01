@@ -351,7 +351,7 @@ form:
                   label: PLUGIN_SCHEMA.NAME
                 header.schema.person.job_title:
                   type: text
-                  label: PLUGIN_SCHEMA.PERSON_JOB_TITLE
+                  label: PLUGIN_SCHEMA.JOB_TITLE
                 header.schema.person.address_address_locality:
                   type: text
                   label: PLUGIN_SCHEMA.PERSON_ADDRESS_LOCALITY 
@@ -520,9 +520,25 @@ form:
                   controls: both
                   style: vertical
                   fields:
-                    .author:
+                    .author_name:
                       type: text
-                      label: PLUGIN_SCHEMA.AUTHOR
+                      label: PLUGIN_SCHEMA.AUTHOR_NAME
+                    .author_job_title:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR_JOB_TITLE
+                    .author_internal_image:
+                      type: mediapicker
+                      label: PLUGIN_SCHEMA.AUTHOR_INTERNAL_IMAGE
+                      help: PLUGIN_SCHEMA.INTERNAL_IMAGE_HELP
+                    .author_external_image:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR_EXTERNAL_IMAGE
+                      help: PLUGIN_SCHEMA.EXTERNAL_IMAGE_HELP
+                      placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
+                    .author_url:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR_URL
+                      placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
                     .date_published:
                       type: datetime
                       label: PLUGIN_SCHEMA.DATE_PUBLISHED

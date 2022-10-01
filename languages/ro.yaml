@@ -31,7 +31,7 @@ PLUGIN_SCHEMA:
   PERFORMER_NAME: "Numele artistului"
   WORKS_PERFORMED: "Listă cântece"
   WORK_PERFORMED_NAME: "Numele cântecelor"
-  PERSON_JOB_TITLE: "Funcția"
+  JOB_TITLE: "Funcția"
   PERSON_ADDRESS_LOCALITY: "Localitatea"
   PERSON_ADDRESS_REGION: "Regiunea / Județul"
   NAME: "Numele"

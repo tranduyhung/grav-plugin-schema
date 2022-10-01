@@ -48,7 +48,7 @@ class Product extends Schema
         if ($brand)
         {
             $data['brand'] = [
-                '@type' => 'Thing',
+                '@type' => 'Brand',
                 'name'  => $brand,
             ];
         }
@@ -125,7 +125,37 @@ class Product extends Schema
 
             foreach ($reviews as $r)
             {
-                $author         = $r['author']          ?? '';
+                $authorName             = $r['author_name']             ?? '';
+                $authorJobTitle         = $r['author_job_title']        ?? '';
+                $authorInternalImage    = $r['author_internal_image']   ?? '';
+                $authorExternalImage    = $r['author_external_image']   ?? '';
+                $authorUrl              = $r['author_url']              ?? '';
+
+                $author = [
+                    '@type'     => 'Person',
+                    'name'      => $authorName,
+                ];
+
+                if ($authorJobTitle)
+                {
+                    $author['jobTitle'] = $authorJobTitle;
+                }
+
+                if ($authorUrl)
+                {
+                    $author['url'] = $authorUrl;
+                }
+
+                if ($authorInternalImage)
+                {
+                    $imageData = $this->getImageData($authorInternalImage);
+                    $author['image'] = $baseUrl .  $imageData['url'];
+                }
+                elseif ($authorExternalImage)
+                {
+                    $author['image'] = $authorExternalImage;
+                }
+
                 $datePublished  = $r['date_published']  ?? '';
                 $name           = $r['name']            ?? '';
                 $reviewBody     = $r['review_body']     ?? '';
@@ -133,10 +163,7 @@ class Product extends Schema
 
                 $review = [
                     '@type'         => 'Review',
-                    'author'        => [
-                        '@type' => 'Person',
-                        'name'  => $author,
-                    ],
+                    'author'        => $author,
                     'datePublished' => $datePublished,
                     'name'          => $name,
                     'reviewBody'    => $reviewBody,

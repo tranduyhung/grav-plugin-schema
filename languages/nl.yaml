@@ -32,7 +32,7 @@ PLUGIN_SCHEMA:
   PERFORMER_NAME: "Artiest naam"
   WORKS_PERFORMED: "Works Performed"
   WORK_PERFORMED_NAME: "Naam werk"
-  PERSON_JOB_TITLE: "Job Titel"
+  JOB_TITLE: "Job Titel"
   PERSON_ADDRESS_LOCALITY: "Adres Locality"
   PERSON_ADDRESS_REGION: "Adres regio"
   NAME: "Naam"

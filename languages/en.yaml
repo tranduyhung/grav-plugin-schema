@@ -32,7 +32,7 @@ PLUGIN_SCHEMA:
   PERFORMER_NAME: "Performer Name"
   WORKS_PERFORMED: "Works Performed"
   WORK_PERFORMED_NAME: "Name of work"
-  PERSON_JOB_TITLE: "Job Title"
+  JOB_TITLE: "Job Title"
   PERSON_ADDRESS_LOCALITY: "Address Locality"
   PERSON_ADDRESS_REGION: "Address Region"
   NAME: "Name"
@@ -132,3 +132,10 @@ PLUGIN_SCHEMA:
   SCHEMA_TYPE: Schema Type
   SCHEMA: Schema
   NOT_USED: This Page Doesn't Use Schema
+  AUTHOR_INTERNAL_IMAGE: Author Image (Internal)
+  INTERNAL_IMAGE_HELP: Use an image on the site. If image is from an external site use external image option instead.
+  AUTHOR_EXTERNAL_IMAGE: Author Image (External)
+  EXTERNAL_IMAGE_HELP: External image is not used if internal image is provided.
+  AUTHOR_NAME: Author Name
+  AUTHOR_JOB_TITLE: Author Job Title
+  AUTHOR_URL: Author URL
