@@ -99,25 +99,13 @@ class Product extends Schema
             }
         }
 
-        $aggregateRating = $product['aggregate_rating'] ?? false;
+        $reviews        = $product['reviews']       ?? [];
+        $worstRating    = $product['worst_rating']  ?? '';
+        $bestRating     = $product['best_rating']   ?? '';
 
-        if ($aggregateRating)
-        {
-            $ratingValue    = $product['rating_value']    ?? '';
-            $ratingCount    = $product['rating_count']    ?? '';
-            $worstRating    = $product['worst_rating']    ?? '';
-            $bestRating     = $product['best_rating']     ?? '';
-
-            $data['aggregateRating'] = [
-                '@type'         => 'AggregateRating',
-                'ratingValue'   => $ratingValue,
-                'ratingCount'   => $ratingCount,
-                'worstRating'   => $worstRating,
-                'bestRating'    => $bestRating,
-            ];
-        }
-
-        $reviews = $product['reviews'] ?? [];
+        $hasReviewRating        = false;
+        $aggregateRatingValue   = 0;
+        $aggregateRatingCount   = 0;
 
         if (!empty($reviews))
         {
@@ -183,19 +171,50 @@ class Product extends Schema
 
                 if ($rating)
                 {
-                    $bestRating     = $r['best_rating']     ?? '';
-                    $ratingValue    = $r['rating_value']    ?? '';
-                    $worstRating    = $r['worst_rating']    ?? '';
+                    $hasReviewRating = true;
+                    $aggregateRatingCount++;
+                    $ratingValue = isset($r['rating_value']) ? floatval($r['rating_value']) : 0;
+
+                    $aggregateRatingValue += $ratingValue;
 
                     $review['reviewRating'] = [
                         '@type'         => 'Rating',
-                        'bestRating'    => $bestRating,
                         'ratingValue'   => $ratingValue,
+                        'bestRating'    => $bestRating,
                         'worstRating'   => $worstRating,
                     ];
                 }
 
                 $data['review'][] = $review;
+            }
+        }
+
+        if ($hasReviewRating)
+        {
+            $data['aggregateRating'] = [
+                '@type'         => 'AggregateRating',
+                'ratingValue'   => $aggregateRatingValue,
+                'ratingCount'   => $aggregateRatingCount,
+                'bestRating'    => $bestRating,
+                'worstRating'   => $worstRating,
+            ];
+        }
+        else
+        {
+            $aggregateRating = $product['aggregate_rating'] ?? false;
+
+            if ($aggregateRating)
+            {
+                $ratingValue    = $product['rating_value']    ?? '';
+                $ratingCount    = $product['rating_count']    ?? '';
+
+                $data['aggregateRating'] = [
+                    '@type'         => 'AggregateRating',
+                    'ratingValue'   => $ratingValue,
+                    'ratingCount'   => $ratingCount,
+                    'worstRating'   => $worstRating,
+                    'bestRating'    => $bestRating,
+                ];
             }
         }
 

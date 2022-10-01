@@ -472,6 +472,7 @@ form:
                   type: toggle
                   highlight: 1
                   label: PLUGIN_SCHEMA.ENABLE_AGGREGATE_RATING
+                  help: PLUGIN_SCHEMA.PRODUCT_AGGREGATE_RATING_HELP
                   default: 0
                   options:
                     1: PLUGIN_ADMIN.YES
@@ -499,7 +500,7 @@ form:
                   type: number
                   label: PLUGIN_SCHEMA.BEST_RATING
                   size: small
-                  help: PLUGIN_SCHEMA.BEST_RATING_HELP
+                  help: PLUGIN_SCHEMA.PRODUCT_BEST_RATING_HELP
                   validate:
                     type: number
                     min: 1
@@ -508,7 +509,7 @@ form:
                   type: number
                   label: PLUGIN_SCHEMA.WORST_RATING
                   size: small
-                  help: PLUGIN_SCHEMA.WORST_RATING_HELP
+                  help: PLUGIN_SCHEMA.PRODUCT_WORST_RATING_HELP
                   validate:
                     type: number
                     min: 1
@@ -574,24 +575,6 @@ form:
                         type: number
                         step: 0.5
                         min: 0
-                      field_classes: review-toggle
-                    .best_rating:
-                      type: number
-                      label: PLUGIN_SCHEMA.BEST_RATING
-                      size: small
-                      help: PLUGIN_SCHEMA.BEST_RATING_HELP
-                      validate:
-                        type: number
-                        min: 1
-                      field_classes: review-toggle
-                    .worst_rating:
-                      type: number
-                      label: PLUGIN_SCHEMA.WORST_RATING
-                      size: small
-                      help: PLUGIN_SCHEMA.WORST_RATING_HELP
-                      validate:
-                        type: number
-                        min: 1
                       field_classes: review-toggle
 
             header.restaurant_fieldset:
