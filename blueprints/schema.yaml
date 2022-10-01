@@ -12,9 +12,10 @@ form:
               type: schemavalidation
             header.schema.type:
               label: PLUGIN_SCHEMA.SCHEMA_TYPE
-              type: radio
-              default: 'Article'
+              type: select
+              default: '0'
               options:
+                '0': PLUGIN_SCHEMA.NOT_USED
                 'Article': PLUGIN_SCHEMA.ARTICLE
                 'Product': PLUGIN_SCHEMA.PRODUCT
                 'Event': PLUGIN_SCHEMA.EVENT

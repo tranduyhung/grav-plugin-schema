@@ -131,3 +131,4 @@ PLUGIN_SCHEMA:
   MUSIC_EVENT: Music Event
   SCHEMA_TYPE: Schema Type
   SCHEMA: Schema
+  NOT_USED: This Page Doesn't Use Schema

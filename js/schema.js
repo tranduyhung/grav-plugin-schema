@@ -1,22 +1,23 @@
 var productReviewSelector = 'input[type="radio"][name^="data[header][product][reviews]"]';
 var productRatingSelector = 'input[name="data[header][product][aggregate_rating]"]';
-var schemaTypeSelector = 'input[name="data[header][schema][type]"]';
+var schemaTypeSelector = 'select[name="data[header][schema][type]"]';
 
 function toggleSchemeType() {
-    var schemaType = $(schemaTypeSelector + ':checked').val();
-
-    if (schemaType == '') return;
-
+    var schemaType = $(schemaTypeSelector + ' option:selected').val();
     var els = $('.microdata-fieldset');
 
-    for (var i = 0; i < els.length; i++) {
-        var el = $(els[i]);
+    if (schemaType != '0') {
+        for (var i = 0; i < els.length; i++) {
+            var el = $(els[i]);
 
-        if (el.hasClass(schemaType + 'Microdata')) {
-            el.show();
-        } else {
-            el.hide();
+            if (el.hasClass(schemaType + 'Microdata')) {
+                el.show();
+            } else {
+                el.hide();
+            }
         }
+    } else {
+        els.hide();
     }
 }
 

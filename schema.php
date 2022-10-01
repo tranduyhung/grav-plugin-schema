@@ -102,7 +102,7 @@ class SchemaPlugin extends Plugin
         if (!property_exists($header, 'schema')) return;
 
         $schema = $header->schema;
-        $schemaType = $schema['type'] ?? '';
+        $schemaType = $schema['type'] ?? '0';
 
         if (!$schemaType) return;
 
