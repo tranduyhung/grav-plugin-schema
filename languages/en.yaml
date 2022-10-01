@@ -139,3 +139,5 @@ PLUGIN_SCHEMA:
   AUTHOR_NAME: Author Name
   AUTHOR_JOB_TITLE: Author Job Title
   AUTHOR_URL: Author URL
+  AUTHOR_ORGANIZATION_NAME: Author's Organization Name
+  AUTHOR_ORGANIZATION_URL: Author's Organization URL

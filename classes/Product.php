@@ -125,11 +125,13 @@ class Product extends Schema
 
             foreach ($reviews as $r)
             {
-                $authorName             = $r['author_name']             ?? '';
-                $authorJobTitle         = $r['author_job_title']        ?? '';
-                $authorInternalImage    = $r['author_internal_image']   ?? '';
-                $authorExternalImage    = $r['author_external_image']   ?? '';
-                $authorUrl              = $r['author_url']              ?? '';
+                $authorName             = $r['author_name']                 ?? '';
+                $authorJobTitle         = $r['author_job_title']            ?? '';
+                $authorInternalImage    = $r['author_internal_image']       ?? '';
+                $authorExternalImage    = $r['author_external_image']       ?? '';
+                $authorUrl              = $r['author_url']                  ?? '';
+                $authorOrgName          = $r['author_organization_name']    ?? '';
+                $authorOrgUrl           = $r['author_organization_url']     ?? '';
 
                 $author = [
                     '@type'     => 'Person',
@@ -154,6 +156,16 @@ class Product extends Schema
                 elseif ($authorExternalImage)
                 {
                     $author['image'] = $authorExternalImage;
+                }
+
+                if ($authorOrgName || $authorOrgUrl)
+                {
+                    $authorOrg = ['@type' => 'Organization'];
+
+                    if ($authorOrgName) $authorOrg['name']  = $authorOrgName;
+                    if ($authorOrgUrl)  $authorOrg['url']   = $authorOrgUrl;
+
+                    $author['organization'] = $authorOrg;
                 }
 
                 $datePublished  = $r['date_published']  ?? '';

@@ -539,6 +539,13 @@ form:
                       type: text
                       label: PLUGIN_SCHEMA.AUTHOR_URL
                       placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
+                    .author_organization_name:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR_ORGANIZATION_NAME
+                    .author_organization_url:
+                      type: text
+                      label: PLUGIN_SCHEMA.AUTHOR_ORGANIZATION_URL
+                      placeholder: PLUGIN_SCHEMA.INCLUDE_HTTPS
                     .date_published:
                       type: datetime
                       label: PLUGIN_SCHEMA.DATE_PUBLISHED
